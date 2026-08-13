@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block title %}Counselling Registration{% endblock %}
+{% block content %}
+
+<section class="page-head">
+  <div class="container">
+    <p class="breadcrumb"><a href="{{ url_for('home') }}">Home</a> / Registration</p>
+    <h1>Counselling Registration — {{ SESSION }}</h1>
+    <p class="page-lead">Register for the mentor–mentee scheme (current V Semester students) or admission counselling (new entrants). Registration is free of cost.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container form-page">
+    <form class="card form-card" method="post" action="{{ url_for('register') }}" novalidate>
+
+      {% set preselect = request.args.get('type', 'academic') %}
+      {% set cur_kind = form.get('kind', preselect) %}
+
+      <fieldset class="kind-picker">
+        <legend>I am registering for</legend>
+        <label class="kind-option {{ 'checked' if cur_kind == 'academic' }}">
+          <input type="radio" name="kind" value="academic" {% if cur_kind == 'academic' %}checked{% endif %}>
+          <span class="kind-box">
+            <span class="kind-emoji">🎓</span>
+            <strong>Academic Counselling</strong>
+            <small>Mentor–mentee scheme — current B.Sc. V Semester students</small>
+          </span>
+        </label>
+        <label class="kind-option {{ 'checked' if cur_kind == 'admission' }}">
+          <input type="radio" name="kind" value="admission" {% if cur_kind == 'admission' %}checked{% endif %}>
+          <span class="kind-box">
+            <span class="kind-emoji">📝</span>
+            <strong>Admission Counselling</strong>
+            <small>Choice filling &amp; seat allotment — new entrants {{ SESSION }}</small>
+          </span>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Personal details</legend>
+        <div class="form-grid">
+          <div class="field">
+            <label for="name">Full name (as per University records) *</label>
+            <input type="text" id="name" name="name" value="{{ form.get('name','') }}" required>
+          </div>
+          <div class="field">
+            <label for="father_name">Father's name</label>
+            <input type="text" id="father_name" name="father_name" value="{{ form.get('father_name','') }}">
+          </div>
+          <div class="field">
+            <label for="dob">Date of birth</label>
+            <input type="date" id="dob" name="dob" value="{{ form.get('dob','') }}" max="{{ today }}">
+          </div>
+          <div class="field">
+            <label for="category">Category</label>
+            <select id="category" name="category">
+              <option value="">— Select —</option>
+              {% for c in CATEGORIES %}
+              <option value="{{ c }}" {% if form.get('category') == c %}selected{% endif %}>{{ c }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Contact details</legend>
+        <div class="form-grid">
+          <div class="field">
+            <label for="email">E-mail *</label>
+            <input type="email" id="email" name="email" value="{{ form.get('email','') }}" placeholder="you@example.com" required>
+          </div>
+          <div class="field">
+            <label for="phone">Mobile number *</label>
+            <input type="tel" id="phone" name="phone" value="{{ form.get('phone','') }}" placeholder="10-digit mobile" pattern="[0-9+ -]{10,15}" required>
+          </div>
+          <div class="field span-2">
+            <label for="address">Correspondence address</label>
+            <textarea id="address" name="address" rows="2">{{ form.get('address','') }}</textarea>
+          </div>
+        </div>
+      </fieldset>
+
+      {# ---------- academic track fields ---------- #}
+      <fieldset id="fs-academic" class="track-fields {{ 'hidden' if cur_kind != 'academic' }}">
+        <legend>Academic details — V Semester students</legend>
+        <div class="form-grid">
+          <div class="field">
+            <label for="roll_no">Roll / Enrolment number *</label>
+            <input type="text" id="roll_no" name="roll_no" value="{{ form.get('roll_no','') }}" placeholder="e.g. 24BSC0123 / GP1234">
+          </div>
+          <div class="field">
+            <label for="combo">Current subject combination</label>
+            <select id="combo" name="combo">
+              <option value="">— Select —</option>
+              {% for c in SUBJECT_COMBOS %}
+              <option value="{{ c }}" {% if form.get('combo') == c %}selected{% endif %}>{{ c }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </fieldset>
+
+      {# ---------- admission track fields ---------- #}
+      <fieldset id="fs-admission" class="track-fields {{ 'hidden' if cur_kind != 'admission' }}">
+        <legend>Counselling preferences — new entrants</legend>
+        <div class="form-grid">
+          <div class="field">
+            <label for="pref1">Preference 1 (subject combination) *</label>
+            <select id="pref1" name="pref1">
+              <option value="">— Select —</option>
+              {% for c in SUBJECT_COMBOS %}
+              <option value="{{ c }}" {% if form.get('pref1') == c %}selected{% endif %}>{{ c }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="field">
+            <label for="pref2">Preference 2</label>
+            <select id="pref2" name="pref2">
+              <option value="">— Select —</option>
+              {% for c in SUBJECT_COMBOS %}
+              <option value="{{ c }}" {% if form.get('pref2') == c %}selected{% endif %}>{{ c }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="field">
+            <label for="pref3">Preference 3</label>
+            <select id="pref3" name="pref3">
+              <option value="">— Select —</option>
+              {% for c in SUBJECT_COMBOS %}
+              <option value="{{ c }}" {% if form.get('pref3') == c %}selected{% endif %}>{{ c }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="field">
+            <label for="percentage">Class XII aggregate (%)</label>
+            <input type="number" id="percentage" name="percentage" value="{{ form.get('percentage','') }}" min="0" max="100" step="0.01">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Anything we should know? (optional)</legend>
+        <div class="field">
+          <label for="message">Message / specific concern for counselling</label>
+          <textarea id="message" name="message" rows="3" placeholder="e.g. backlog in a subject, career query, exam anxiety…">{{ form.get('message','') }}</textarea>
+        </div>
+      </fieldset>
+
+      <label class="consent">
+        <input type="checkbox" required>
+        <span>I declare that the information furnished above is correct, and I agree to be contacted by the Counselling Cell on the details provided.</span>
+      </label>
+
+      <button type="submit" class="btn btn-gold btn-lg">Submit Registration</button>
+      <p class="fineprint">A reference ID (R…-AC / R…-AD) is generated on successful submission — please save it for all future correspondence.</p>
+    </form>
+  </div>
+</section>
+
+{% endblock %}

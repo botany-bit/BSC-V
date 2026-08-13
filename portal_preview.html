@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Botany Counselling — B.Sc. Student Portal 2026-27 (HTML Preview)</title>
+<style>
+:root{--bg:#0a0f1c;--card:#101827;--card2:#0d1526;--line:#1f2a44;--inline:#24304d;--text:#e5e7eb;--muted:#8b98b4;--blue:#2563eb;--green:#16a34a;--red:#dc2626}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:"Segoe UI",system-ui,Roboto,Arial,sans-serif;font-size:14px;line-height:1.5}
+.container{max-width:1380px;margin:0 auto;padding:0 20px}
+.brandbar{background:#0b1220;border-bottom:1px solid var(--line)}
+.brandbar-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 14px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,#1e40af,#2563eb);color:#fff}
+.brand-title{font-size:1.25rem;font-weight:800;color:#f1f5f9}
+.brand-sub{font-size:.8rem;color:var(--muted)}
+.dept-pill{background:#16213c;border:1px solid var(--inline);color:#c7d2e8;border-radius:8px;padding:8px 14px;font-weight:700;font-size:.85rem}
+.tabs-wrap{background:#0b1220;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+.tabs{display:flex;gap:8px;padding:10px 20px;flex-wrap:wrap}
+.tab{padding:8px 15px;border-radius:9px;font-weight:700;font-size:.86rem;color:#c7d2e8;border:1px solid transparent;cursor:pointer;background:none}
+.tab:hover{background:#16213c;color:#fff}
+.tab.active{background:linear-gradient(135deg,#1e40af,#2563eb);color:#fff;box-shadow:0 2px 10px rgba(37,99,235,.35)}
+.tab-badge{font-size:.72rem;font-weight:800;padding:2px 9px;border-radius:6px;color:#fff}
+.b-vac_v{background:#7c3aed}.b-voc_v{background:#db2777}.b-mo_v{background:#0891b2}.b-no_v{background:#ea580c}.b-xo_v{background:#65a30d}.b-vac_vi{background:#b45309}.b-voc_vi{background:#15803d}.b-mo_vi{background:#155e75}.b-no_vi{background:#9a3412}.b-xo_vi{background:#3f6212}.b-mj_v{background:#475569}.b-mj_vi{background:#475569}
+.body{padding:26px 20px 50px}
+.sheet-head h1{font-size:1.5rem;color:#f1f5f9;margin-bottom:2px}
+.sheet-head p{color:var(--muted);font-size:.9rem;margin-bottom:18px}
+.demo-note{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.4);color:#9ecbff;border-radius:9px;padding:9px 14px;font-size:.82rem;margin-bottom:16px}
+.demo-note b{color:#cfe2ff}
+.toolbar-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.spacer{flex:1}
+.obtn{display:inline-flex;align-items:center;gap:6px;cursor:pointer;background:#1a2740;border:1px solid var(--inline);color:#dbe4f5;font-weight:600;font-size:.85rem;padding:8px 13px;border-radius:8px;font-family:inherit}
+.obtn:hover{background:#223154;color:#fff}
+.obtn:disabled{opacity:.35;cursor:not-allowed}
+.obtn-blue{background:rgba(37,99,235,.18);border-color:rgba(59,130,246,.6);color:#7db4ff}
+.obtn-blue:hover{background:rgba(37,99,235,.35)}
+.obtn-blue-solid{background:linear-gradient(135deg,#1e40af,#2563eb);border-color:transparent;color:#fff}
+.obtn-green{background:rgba(22,163,74,.18);border-color:rgba(34,197,94,.55);color:#7ee2a8}
+.obtn-green:hover{background:rgba(22,163,74,.35)}
+.obtn-red{background:rgba(220,38,38,.15);border-color:rgba(239,68,68,.5);color:#fda4a4}
+.obtn-red:hover{background:rgba(220,38,38,.35)}
+.obtn-dim{opacity:.55}
+.obtn-lg{padding:10px 20px;font-size:.95rem}
+.search{background:var(--card2);border:1px solid var(--inline);color:var(--text);border-radius:8px;padding:9px 13px;min-width:320px;font-size:.88rem}
+.form-card,.table-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:18px}
+.form-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px 14px}
+.ofield label{display:block;font-size:.75rem;font-weight:700;color:var(--muted);margin-bottom:5px;letter-spacing:.3px}
+input,select,textarea{background:var(--card2);border:1px solid var(--inline);color:var(--text);border-radius:8px;padding:9px 11px;font-size:.88rem;width:100%;font-family:inherit}
+input::placeholder{color:#55637f}
+input:focus,select:focus{outline:2px solid rgba(59,130,246,.45);border-color:#3b82f6;background:#0f1a30}
+.form-actions{margin-top:14px;display:flex;gap:10px}
+.table-scroll{overflow-x:auto}
+table.otable{width:100%;border-collapse:collapse;font-size:.82rem;min-width:1900px}
+.otable th{text-align:left;font-size:.68rem;letter-spacing:.6px;color:#93a4c6;padding:10px;border-bottom:1px solid var(--line);white-space:nowrap;text-transform:uppercase;font-weight:800;background:var(--card2)}
+.otable td{padding:8px 10px;border-bottom:1px solid #16203a;vertical-align:middle}
+.otable tbody tr:hover td{background:#131d33}
+.ocheck{width:34px;text-align:center}
+.mono{font-family:ui-monospace,Consolas,monospace;color:#9ecbff}
+.submeta{font-size:.72rem;color:var(--muted);margin-top:2px}
+.cell-input{min-width:175px}
+.oactions{white-space:nowrap}
+.oico{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:7px;cursor:pointer;background:#1a2740;border:1px solid var(--inline);color:#dbe4f5;font-size:.8rem;margin-right:4px}
+.oico:hover{background:#223154}
+.oico-green{border-color:rgba(34,197,94,.5);color:#7ee2a8}
+.oico-blue{border-color:rgba(59,130,246,.55);color:#7db4ff}
+.oico-red{border-color:rgba(239,68,68,.5);color:#fda4a4}
+.oec-course-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:-2px 0 10px}
+.oec-big-code{font-size:1.02rem;font-weight:800;color:#f1f5f9;letter-spacing:.4px}
+.oec-course-title{color:var(--muted);font-size:.82rem}
+.oec-course-count{font-size:1.15rem;font-weight:800;color:var(--muted);background:var(--card2);border:1px solid var(--inline);border-radius:8px;min-width:44px;text-align:center;padding:2px 10px}
+.oec-course-count.has{color:#7ee2a8;border-color:rgba(34,163,74,.5)}
+.oec-course-actions{margin-left:auto;display:flex;gap:6px}
+.obtn-xs{padding:5px 10px;font-size:.78rem}
+.slot-ok{border-color:var(--green)!important;box-shadow:0 0 0 2px rgba(22,163,74,.25)}
+.slot-error{border-color:var(--red)!important;box-shadow:0 0 0 2px rgba(220,38,38,.25)}
+.editrow td{background:var(--card2)!important;padding:16px}
+.editgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 14px;align-items:end}
+.editgrid label{font-size:.74rem;color:var(--muted);font-weight:700}
+.tag{display:inline-block;font-size:.68rem;font-weight:800;padding:3px 10px;border-radius:999px;background:#16213c;border:1px solid var(--inline);color:#9ecbff}
+.chip-count{background:rgba(255,255,255,.16);border-radius:99px;padding:1px 8px;font-size:.72rem;margin-left:4px}
+.empty{color:var(--muted);font-style:italic;padding:16px!important}
+.card-head{margin:0 0 12px;font-size:1.02rem;color:#f1f5f9}
+.toast{position:fixed;bottom:22px;right:22px;z-index:999;background:var(--card);border:1px solid var(--inline);color:var(--text);padding:10px 18px;border-radius:10px;font-size:.86rem;font-weight:600;opacity:0;transform:translateY(8px);transition:all .25s ease;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.ok{border-color:rgba(34,197,94,.6);color:#7ee2a8}
+.toast.err{border-color:rgba(239,68,68,.6);color:#fda4a4}
+footer{border-top:1px solid var(--line);background:#0b1220;color:var(--muted);font-size:.8rem;padding:16px 20px;text-align:center}
+.tab-panel{display:none}.tab-panel.active{display:block}
+@media(max-width:1000px){.form-grid{grid-template-columns:repeat(2,1fr)}.search{min-width:0;flex:1}}
+#printArea{display:none}
+@media print{
+  body{background:#fff;color:#000}
+  .brandbar,.tabs-wrap,.body .no-print,footer,.demo-note,.toast{display:none!important}
+  .body{padding:0}
+  #printArea{display:block;color:#000}
+  #printArea h2{color:#0b5d3b;text-align:center;margin-bottom:2px}
+  #printArea .sub{text-align:center;color:#555;font-size:11px;margin-bottom:12px}
+  #printArea table{width:100%;border-collapse:collapse;font-size:10px}
+  #printArea th{background:#0b5d3b;color:#fff;padding:5px 6px;border:1px solid #0a4e32;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #printArea td{border:1px solid #aaa;padding:4px 6px}
+  #printArea .sign{display:flex;justify-content:space-between;margin-top:60px;text-align:center;font-weight:600;font-size:12px}
+  #printArea .sign div{flex:1}
+  #printArea .sline{display:block;border-top:1.5px solid #333;margin:0 20px 5px}
+}
+</style>
+</head>
+<body>
+
+<header class="brandbar">
+  <div class="container brandbar-inner">
+    <div class="brand">
+      <span class="logo">▦</span>
+      <div>
+        <div class="brand-title">Botany Counselling</div>
+        <div class="brand-sub">B.Sc. Student Portal • 2026-27</div>
+      </div>
+    </div>
+    <span class="dept-pill">Department of Botany</span>
+  </div>
+</header>
+
+<div class="tabs-wrap"><div class="container tabs" id="tabs"></div></div>
+
+<main class="body container">
+
+  <section class="tab-panel active" id="panel-main">
+    <div class="sheet-head">
+      <h1>▦ Main Entry Sheet</h1>
+      <p>Master data entry • Automatic course separation enabled</p>
+    </div>
+
+    <div class="demo-note no-print"><b>Static HTML preview</b> — loaded with the official Semester-V code catalogue (385 codes, auto-categorized MO/NO/XO/VAC/VOC/MJ). Everything works in-browser; data resets on reload. Real database, Excel/PDF/ZIP and restore are in the <b>live Flask app</b>.</div>
+
+    <div class="toolbar-row no-print">
+      <button class="obtn obtn-blue-solid" onclick="clearForm(true)">＋ New Record</button>
+      <button class="obtn obtn-blue" onclick="clearForm(true)">👤 New Student</button>
+      <button class="obtn obtn-blue" onclick="needApp('Import Excel')">📄 Import Excel</button>
+      <button class="obtn obtn-blue" onclick="needApp('Import CSV')">📊 Import CSV</button>
+      <button class="obtn" onclick="downloadCSV(sampleRows(),'Sample_MainEntry.csv')">⬇ Sample</button>
+      <button class="obtn obtn-green" onclick="document.getElementById('addBtn').click()">💾 Save</button>
+      <button class="obtn obtn-green" id="autoBtn">⟳ Auto Save</button>
+      <span class="spacer"></span>
+      <button class="obtn" id="undoBtn" title="Undo (Ctrl+Z)" disabled>↶</button>
+      <button class="obtn" id="redoBtn" title="Redo (Ctrl+Y)" disabled>↷</button>
+      <button class="obtn obtn-red" id="bulkBtn">🗑 Delete</button>
+      <button class="obtn" onclick="location.reload()">⟳ Refresh</button>
+    </div>
+    <div class="toolbar-row no-print">
+      <input type="search" class="search" id="rowSearch" placeholder="🔍 Search name, enroll, roll, mobile…">
+      <span class="spacer"></span>
+      <button class="obtn obtn-blue" onclick="downloadCSV(mainRows(),'Main_Entry_Sheet.csv')">📄 Excel</button>
+      <button class="obtn obtn-red" onclick="needApp('PDF export')">📕 PDF</button>
+      <button class="obtn" onclick="printMain()">🖨 Print</button>
+      <button class="obtn obtn-blue" onclick="needApp('ZIP export')">🗜 ZIP</button>
+      <button class="obtn" onclick="needApp('Split Sheets')">🗂 Split Sheets</button>
+      <button class="obtn" onclick="downloadCSV(mainRows(),'Backup_MainEntry.csv')">⇩ Backup</button>
+      <button class="obtn" onclick="needApp('Restore')">⇧ Restore</button>
+    </div>
+
+    <form class="form-card no-print" id="addForm" onsubmit="return addStudent(event)">
+      <div class="form-grid">
+        <div class="ofield"><label>Enrollment No.</label><input id="f_enrol" placeholder="2026BOT001"></div>
+        <div class="ofield"><label>Student Name *</label><input id="f_name" placeholder="Student name" required></div>
+        <div class="ofield"><label>Faculty No.</label><input id="f_fac" placeholder="BSC2026/45"></div>
+        <div class="ofield"><label>Mobile</label><input id="f_mobile" placeholder="98XXXXXXXX"></div>
+        <div class="ofield"><label>Course Type</label><select id="f_ctype"></select></div>
+        <div class="ofield"><label>Course Code</label><select id="f_code"><option value="">-- Select Course Code --</option></select></div>
+        <div class="ofield"><label>Course Name</label><select id="f_cname"><option value="">-- Select Course Name --</option></select></div>
+        <div class="ofield"><label>Semester</label><select id="f_sem"><option value="">--</option><option>V</option><option>VI</option></select></div>
+        <div class="ofield"><label>Status</label><select id="f_status"><option>Pending</option><option>Counselling Done</option><option>Seat Allotted</option><option>Reported</option><option>Cancelled</option></select></div>
+        <div class="ofield"><label>Remarks</label><input id="f_remarks" placeholder="Optional"></div>
+      </div>
+      <div class="form-actions">
+        <button class="obtn obtn-blue-solid obtn-lg" id="addBtn" type="submit">＋ Add Student</button>
+        <button class="obtn" type="button" onclick="clearForm(true)">Clear</button>
+      </div>
+    </form>
+
+    <div class="table-card">
+      <div class="table-scroll">
+        <table class="otable">
+          <thead><tr id="mainHead"></tr></thead>
+          <tbody id="mainBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="datalists"></div>
+  </section>
+
+  <span id="panels"></span>
+
+</main>
+
+<div id="printArea"></div>
+
+<footer>Botany Counselling · B.Sc. Student Portal 2026-27 · static HTML preview of the live Flask module</footer>
+
+<script>
+/* ================= official Semester-V catalogue (auto-categorized) ================= */
+var COURSES = {"mj_v": [["WSBOMJ5001", ""], ["WSBOMJ5002", ""], ["WSBOMJ5003", ""], ["ARBAMJ5001", ""], ["ARBAMJ5002", ""], ["ARBAMJ5003", ""], ["BCBLMJ5001", ""], ["BCBLMJ5P05", ""], ["BCBLMJ5002", ""], ["BCBLMJ5P06", ""], ["BTBLMJ5001", ""], ["BTBLMJ5002", ""], ["BTBLMJ5P05", ""], ["BTBLMJ5P06", ""], ["CHBSMJ5001", ""], ["CHBSMJ5002", ""], ["CHBSMJ5P05", ""], ["CMBCMJ5001", ""], ["CMBCMJ5002", ""], ["CMBCMJ5003", ""], ["CABSMJ5001", ""], ["CABSMJ5002", ""], ["CABSMJ5P05", ""], ["ECBOMJ5001", ""], ["ECBOMJ5002", ""], ["ECBOMJ5003", ""], ["EDBOMJ5001", ""], ["EDBOMJ5002", ""], ["EDBOMJ5003", ""], ["CNBAMJ5001", ""], ["CNBAMJ5002", ""], ["CNBAMJ5003", ""], ["ENBAMJ5001", ""], ["ENBAMJ5002", ""], ["ENBAMJ5003", ""], ["CHBIMJ5001", ""], ["CHBIMJ5003", ""], ["FRBIMJ5001", ""], ["FRBIMJ5003", ""], ["GRBIMJ5001", ""], ["GRBIMJ5002", ""], ["GRBIMJ5003", ""], ["RSBIMJ5001", ""], ["RSBIMJ5002", ""], ["RSBIMJ5003", ""], ["SPBIMJ5001", ""], ["SPBIMJ5003", ""], ["CHBIMJ5P02", ""], ["FRBIMJ5P02", ""], ["GGBSMJ5001", ""], ["GGBSMJ5002", ""], ["GGBSMJ5P05", ""], ["GLBSMJ5001", ""], ["GLBSMJ5002", ""], ["GLBSMJ5003", ""], ["GLBSMJ5P05", ""], ["GLBSMJ5P06", ""], ["HNBAMJ5001", ""], ["HNBAMJ5002", ""], ["HNBAMJ5003", ""], ["HNBAMJ5004", ""], ["HSBOMJ5001", ""], ["HSBOMJ5002", ""], ["HSBOMJ5003", ""], ["ICBSMJ5001", ""], ["ICBSMJ5002", ""], ["ICBSMJ5P05", ""], ["ISBOMJ5001", ""], ["ISBOMJ5002", ""], ["ISBOMJ5003", ""], ["OSBAMJ5001", ""], ["OSBAMJ5002", ""], ["OSBAMJ5003", ""], ["LNBAMJ5002", ""], ["LNBAMJ5003", ""], ["MMBSMJ5001", ""], ["MMBSMJ5002", ""], ["MMBSMJ5003", ""], ["PRBAMJ5001", ""], ["PRBAMJ5002", ""], ["PRBAMJ5003", ""], ["PYBAMJ5001", ""], ["PYBAMJ5002", ""], ["PYBAMJ5003", ""], ["PHBSMJ5001", ""], ["PHBSMJ5P05", ""], ["PHBSMJ5P06", ""], ["PLBOMJ5001", ""], ["PLBOMJ5002", ""], ["PLBOMJ5003", ""], ["PSBOMJ5001", ""], ["PSBOMJ5002", ""], ["PSBOMJ5003", ""], ["SKBAMJ5001", ""], ["SKBAMJ5002", ""], ["SKBAMJ5003", ""], ["SHBTMJ5001", ""], ["SHBTMJ5002", ""], ["SHBTMJ5003", ""], ["SOBOMJ5001", ""], ["SOBOMJ5002", ""], ["SOBOMJ5003", ""], ["STBSMJ5002", ""], ["STBSMJ5P05", ""], ["STBSMJ5P06", ""], ["STBSMJ5001", ""], ["SUBTMJ5001", ""], ["SUBTMJ5002", ""], ["SUBTMJ5003", ""], ["URBAMJ5001", ""], ["URBAMJ5002", ""], ["URBAMJ5003", ""], ["WABIMJ5005", ""], ["WABIMJ5006", ""], ["WABIMJ5007", ""], ["ZYBLMJ5001", ""], ["ZYBLMJ5002", ""], ["ZYBLMJ5P05", ""], ["ZYBLMJ5P06", ""]], "xo_v": [["WSBOXO5004", ""], ["WSBOXO5005", ""], ["WSBOXO5006", ""], ["WSBOXO5007", ""], ["CHBSXO5003", ""], ["CHBSXO5004", ""], ["CHBSXO5006", ""], ["CHBSXO5007", ""], ["CMBCXO5006", ""], ["CMBCXO5007", ""], ["CMBCXO5004", ""], ["CMBCXO5005", ""], ["CABSXO5003", ""], ["CABSXO5004", ""], ["CABSXO5005", ""], ["CABSXO5P01", ""], ["CABSXO5P02", ""], ["CABSXO5P03", ""], ["ECBOXO5004", ""], ["ECBOXO5005", ""], ["ECBOXO5006", ""], ["ECBOXO5007", ""], ["ECBOXO5008", ""], ["ECBOXO5009", ""], ["ECBOXO5010", ""], ["ECBOXO5011", ""], ["EDBOXO5004", ""], ["EDBOXO5005", ""], ["EDBOXO5006", ""], ["EDBOXO5007", ""], ["EDBOXO5008", ""], ["EDBOXO5009", ""], ["EDBOXO5010", ""], ["EDBOXO5011", ""], ["CNBAXO5004", ""], ["CNBAXO5005", ""], ["CNBAXO5006", ""], ["CNBAXO5007", ""], ["ENBAXO5004", ""], ["ENBAXO5005", ""], ["ENBAXO5006", ""], ["ENBAXO5007", ""], ["ENBAXO5008", ""], ["ENBAXO5009", ""], ["GGBSXO5003", ""], ["GGBSXO5004", ""], ["GGBSXO5005", ""], ["GGBSXO5006", ""], ["HNBAXO5005", ""], ["HNBAXO5006", ""], ["HNBAXO5007", ""], ["HNBAXO5008", ""], ["HNBAXO5009", ""], ["HNBAXO5010", ""], ["HNBAXO5011", ""], ["HNBAXO5012", ""], ["HSBOXO5004", ""], ["HSBOXO5005", ""], ["HSBOXO5006", ""], ["HSBOXO5007", ""], ["HSBOXO5008", ""], ["ICBSXO5003", ""], ["ICBSXO5004", ""], ["ISBOXO5004", ""], ["ISBOXO5005", ""], ["ISBOXO5006", ""], ["ISBOXO5007", ""], ["ISBOXO5008", ""], ["OSBAXO5005", ""], ["OSBAXO5007", ""], ["LSBOXO5001", ""], ["LSBOXO5002", ""], ["LNBAXO5004", ""], ["LNBAXO5005", ""], ["LNBAXO5006", ""], ["LNBAXO5007", ""], ["MMBSXO5004", ""], ["MMBSXO5005", ""], ["MMBSXO5006", ""], ["MMBSXO5007", ""], ["PRBAXO5004", ""], ["PRBAXO5005", ""], ["PRBAXO5006", ""], ["PRBAXO5007", ""], ["PHBSXO5003", ""], ["PHBSXO5004", ""], ["PHBSXO5005", ""], ["PHBSXO5006", ""], ["PLBOXO5004", ""], ["PLBOXO5005", ""], ["PLBOXO5006", ""], ["PLBOXO5007", ""], ["PSBOXO5004", ""], ["PSBOXO5005", ""], ["PSBOXO5006", ""], ["PSBOXO5007", ""], ["PSBOXO5008", ""], ["PSBOXO5009", ""], ["PSBOXO5010", ""], ["SKBAXO5004", ""], ["SKBAXO5005", ""], ["SKBAXO5006", ""], ["SKBAXO5007", ""], ["SOBOXO5004", ""], ["SOBOXO5005", ""], ["SOBOXO5006", ""], ["SOBOXO5007", ""], ["STBSXO5003", ""], ["STBSXO5P01", ""], ["URBAXO5004", ""], ["URBAXO5005", ""], ["URBAXO5007", ""], ["WABIXO5005", ""], ["WABIXO5006", ""]], "voc_v": [["WSBOVO5008", ""], ["ARBAVO5012", ""], ["BCBLVO5007", ""], ["BYBLVO5001", ""], ["BTBLVO5007", ""], ["CHBSVO5008", ""], ["CMBCVO5008", ""], ["ECBOVO5012", ""], ["EDBOVO5012", ""], ["ENBAVO5010", ""], ["CHBIVO5008", ""], ["FRBIVO5008", ""], ["GRBIVO5008", ""], ["RSBIVO5008", ""], ["SPBIVO5008", ""], ["GGBSVO5007", ""], ["GLBSVO5009", ""], ["HNBAVO5013", ""], ["HSBOVO5009", ""], ["ICBSVO5005", ""], ["ISBOVO5009", ""], ["OSBAVO5008", ""], ["LNBAVO5008", ""], ["MMBSVO5008", ""], ["BNBAVO5005", ""], ["KLBAVO5005", ""], ["MLBAVO5005", ""], ["MRBAVO5005", ""], ["PBBAVO5005", ""], ["TMBAVO5005", ""], ["TLBAVO5005", ""], ["MUBLVO5001", ""], ["PRBAVO5008", ""], ["PYBAVO5012", ""], ["PHBSVO5007", ""], ["PLBOVO5008", ""], ["PSBOVO5011", ""], ["SKBAVO5008", ""], ["SHBTVO5008", ""], ["SOBOVO5008", ""], ["STBSVO5004", ""], ["SUBTVO5008", ""], ["URBAVO5008", ""], ["ZYBLVO5007", ""]], "mo_v": [["ARBAMO5004", ""], ["ARBAMO5005", ""], ["ARBAMO5008", ""], ["ARBAMO5009", ""], ["BCBLMO5003", ""], ["BCBLMO5P01", ""], ["BCBLMO5004", ""], ["BCBLMO5P02", ""], ["BTBLMO5003", ""], ["BTBLMO5004", ""], ["BTBLMO5P01", ""], ["BTBLMO5P02", ""], ["CHBIMO5004", ""], ["CHBIMO5005", ""], ["CHBIMO5006", ""], ["CHBIMO5007", ""], ["FRBIMO5004", ""], ["FRBIMO5005", ""], ["FRBIMO5006", ""], ["FRBIMO5007", ""], ["GRBIMO5004", ""], ["GRBIMO5005", ""], ["GRBIMO5006", ""], ["GRBIMO5007", ""], ["RSBIMO5004", ""], ["RSBIMO5005", ""], ["RSBIMO5006", ""], ["RSBIMO5007", ""], ["SPBIMO5004", ""], ["SPBIMO5005", ""], ["SPBIMO5006", ""], ["SPBIMO5007", ""], ["GLBSMO5004", ""], ["GLBSMO5005", ""], ["PYBAMO5004", ""], ["PYBAMO5005", ""], ["PYBAMO5006", ""], ["PYBAMO5007", ""], ["SHBTMO5004", ""], ["SHBTMO5005", ""], ["SUBTMO5004", ""], ["SUBTMO5005", ""], ["ZYBLMO5003", ""], ["ZYBLMO5004", ""], ["ZYBLMO5P01", ""], ["ZYBLMO5P02", ""]], "no_v": [["ARBANO5006", ""], ["ARBANO5007", ""], ["ARBANO5010", ""], ["ARBANO5011", ""], ["BCBLNO5005", ""], ["BCBLNO5P01", ""], ["BCBLNO5006", ""], ["BCBLNO5P02", ""], ["BTBLNO5005", ""], ["BTBLNO5P01", ""], ["BTBLNO5006", ""], ["BTBLNO5P02", ""], ["GLBSNO5006", ""], ["GLBSNO5007", ""], ["GLBSNO5008", ""], ["BNBANO5001", ""], ["BNBANO5002", ""], ["BNBANO5003", ""], ["BNBANO5004", ""], ["KLBANO5001", ""], ["KLBANO5002", ""], ["KLBANO5003", ""], ["KLBANO5004", ""], ["MLBANO5001", ""], ["MLBANO5002", ""], ["MLBANO5003", ""], ["MLBANO5004", ""], ["MRBANO5001", ""], ["MRBANO5002", ""], ["MRBANO5003", ""], ["MRBANO5004", ""], ["PBBANO5001", ""], ["PBBANO5002", ""], ["PBBANO5003", ""], ["PBBANO5004", ""], ["TMBANO5001", ""], ["TMBANO5002", ""], ["TMBANO5003", ""], ["TMBANO5004", ""], ["TLBANO5001", ""], ["TLBANO5002", ""], ["TLBANO5003", ""], ["TLBANO5004", ""], ["PYBANO5008", ""], ["PYBANO5009", ""], ["PYBANO5010", ""], ["PYBANO5011", ""], ["SHBTNO5006", ""], ["SHBTNO5007", ""], ["SBBIMNO5001", ""], ["SBBIMNO5002", ""], ["SUBTNO5006", ""], ["SUBTNO5007", ""], ["WABINO5001", ""], ["WABINO5002", ""], ["WABINO5003", ""], ["WABINO5004", ""], ["ZYBLNO5005", ""], ["ZYBLNO5006", ""], ["ZYBLNO5P01", ""], ["ZYBLNO5P02", ""]], "vac_v": [["WLBLVA5001", "Fundamentals of Environment"]], "mj_vi": [["WSBOMJ6001", ""], ["WSBOMJ6002", ""], ["WSBOMJ6003", ""], ["ARBAMJ6001", ""], ["ARBAMJ6002", ""], ["ARBAMJ6003", ""], ["BCBLMJ6001", ""], ["BCBLMJ6P07", ""], ["BCBLMJ6002", ""], ["BCBLMJ6P08", ""], ["BTBLMJ6001", ""], ["BTBLMJ6P06", ""], ["BTBLMJ6002", ""], ["BTBLMJ6P08", ""], ["CHBSMJ6001", ""], ["CHBSMJ6002", ""], ["CHBSMJ6P06", ""], ["CMBCMJ6001", ""], ["CMBCMJ6003", ""], ["CMBCMJ6002", ""], ["CABSMJ6001", ""], ["CABSMJ6002", ""], ["CABSMJ6P06", ""], ["ECBOMJ6001", ""], ["ECBOMJ6002", ""], ["ECBOMJ6003", ""], ["EDBOMJ6001", ""], ["EDBOMJ6002", ""], ["EDBOMJ6003", ""], ["CNBAMJ6002", ""], ["CNBAMJ6001", ""], ["CNBAMJ6003", ""], ["ENBAMJ6001", ""], ["ENBAMJ6002", ""], ["ENBAMJ6003", ""], ["CHBIMJ6001", ""], ["CHBIMJ6P02", ""], ["CHBIMJ6003", ""], ["FRBIMJ6001", ""], ["FRBIMJ6P02", ""], ["FRBIMJ6003", ""], ["GRBIMJ6001", ""], ["GRBIMJ6002", ""], ["GRBIMJ6003", ""], ["RSBIMJ6001", ""], ["RSBIMJ6002", ""], ["RSBIMJ6003", ""], ["SPBIMJ6001", ""], ["SPBIMJ6002", ""], ["SPBIMJ6P03", ""], ["GGBSMJ6001", ""], ["GGBSMJ6002", ""], ["GGBSMJ6P06", ""], ["GLBSMJ6001", ""], ["GLBSMJ6002", ""], ["GLBSMJ6003", ""], ["GLBSMJ6004", ""], ["GLBSMJ6P07", ""], ["HNBAMJ6001", ""], ["HNBAMJ6002", ""], ["HNBAMJ6003", ""], ["HSBOMJ6001", ""], ["HSBOMJ6002", ""], ["HSBOMJ6003", ""], ["ICBSMJ6001", ""], ["ICBSMJ6002", ""], ["ICBSMJ6P06", ""], ["ISBOMJ6001", ""], ["ISBOMJ6002", ""], ["ISBOMJ6003", ""], ["OSBAMJ6001", ""], ["OSBAMJ6002", ""], ["OSBAMJ6003", ""], ["LNBAMJ6001", ""], ["LNBAMJ6002", ""], ["LNBAMJ6003", ""], ["MMBSMJ6001", ""], ["MMBSMJ6002", ""], ["MMBSMJ6003", ""], ["PRBAMJ6001", ""], ["PRBAMJ6002", ""], ["PRBAMJ6003", ""], ["PYBAMJ6001", ""], ["PYBAMJ6002", ""], ["PYBAMJ6003", ""], ["PHBSMJ6001", ""], ["PHBSMJ6002", ""], ["PHBSMJ6P07", ""], ["PHBSMJ6P08", ""], ["PLBOMJ6001", ""], ["PLBOMJ6002", ""], ["PLBOMJ6003", ""], ["PSBOMJ6001", ""], ["PSBOMJ6002", ""], ["PSBOMJ6P05", ""], ["SKBAMJ6001", ""], ["SKBAMJ6002", ""], ["SKBAMJ6003", ""], ["SHBTMJ6001", ""], ["SHBTMJ6002", ""], ["SHBTMJ6003", ""], ["SOBOMJ6001", ""], ["SOBOMJ6002", ""], ["SOBOMJ6003", ""], ["STBSMJ6001", ""], ["STBSMJ6002", ""], ["STBSMJ6P07", ""], ["STBSMJ6P08", ""], ["SUBTMJ6001", ""], ["SUBTMJ6002", ""], ["SUBTMJ6003", ""], ["URBAMJ6001", ""], ["URBAMJ6002", ""], ["URBAMJ6003", ""], ["WABIMJ6005", ""], ["WABIMJ6006", ""], ["WABIMJ6007", ""], ["ZYBLMJ6001", ""], ["ZYBLMJ6P07", ""], ["ZYBLMJ6002", ""], ["ZYBLMJ6P08", ""]], "xo_vi": [["WSBOXO6004", ""], ["WSBOXO6005", ""], ["WSBOXO6006", ""], ["WSBOXO6007", ""], ["CHBSXO6003", ""], ["CHBSXO6004", ""], ["CHBSXO6010", ""], ["CHBSXO6006", ""], ["CMBCXO6004", ""], ["CMBCXO6005", ""], ["CMBCXO6006", ""], ["CMBCXO6007", ""], ["CABSXO6003", ""], ["CABSXO6004", ""], ["CABSXO6005", ""], ["CABSXO6P04", ""], ["CABSXO6P05", ""], ["CABSXO6P06", ""], ["ECBOXO6004", ""], ["ECBOXO6005", ""], ["ECBOXO6006", ""], ["ECBOXO6007", ""], ["ECBOXO6008", ""], ["ECBOXO6009", ""], ["ECBOXO6010", ""], ["EDBOXO6004", ""], ["EDBOXO6005", ""], ["EDBOXO6006", ""], ["EDBOXO6007", ""], ["EDBOXO6008", ""], ["EDBOXO6009", ""], ["EDBOXO6010", ""], ["EDBOXO6011", ""], ["CNBAXO6004", ""], ["CNBAXO6005", ""], ["CNBAXO6006", ""], ["CNBAXO6007", ""], ["ENBAXO6004", ""], ["ENBAXO6005", ""], ["ENBAXO6006", ""], ["ENBAXO6007", ""], ["ENBAXO6008", ""], ["ENBAXO6009", ""], ["GGBSXO6003", ""], ["GGBSXO6004", ""], ["GGBSXO6005", ""], ["GGBSXO6006", ""], ["HNBAXO6004", ""], ["HNBAXO6005", ""], ["HNBAXO6006", ""], ["HNBAXO6007", ""], ["HNBAXO6008", ""], ["HNBAXO6009", ""], ["HNBAXO6010", ""], ["HSBOXO6004", ""], ["HSBOXO6005", ""], ["HSBOXO6006", ""], ["HSBOXO6007", ""], ["HSBOXO6008", ""], ["HSBOXO6009", ""], ["HSBOXO6010", ""], ["HSBOXO6011", ""], ["ICBSXO6003", ""], ["ICBSXO6004", ""], ["ISBOXO6004", ""], ["ISBOXO6005", ""], ["ISBOXO6006", ""], ["ISBOXO6007", ""], ["ISBOXO6008", ""], ["OSBAXO6004", ""], ["OSBAXO6005", ""], ["OSBAXO6006", ""], ["OSBAXO6007", ""], ["LSBOXO6001", ""], ["LSBOXO6002", ""], ["LNBAXO6004", ""], ["LNBAXO6005", ""], ["LNBAXO6006", ""], ["LNBAXO6007", ""], ["MMBSXO6004", ""], ["MMBSXO6005", ""], ["MMBSXO6006", ""], ["MMBSXO6007", ""], ["PRBAXO6004", ""], ["PRBAXO6005", ""], ["PRBAXO6006", ""], ["PRBAXO6007", ""], ["PHBSXO6003", ""], ["PHBSXO6004", ""], ["PHBSXO6005", ""], ["PHBSXO6006", ""], ["PLBOXO6004", ""], ["PLBOXO6005", ""], ["PLBOXO6006", ""], ["PLBOXO6007", ""], ["PSBOXO6003", ""], ["PSBOXO6004", ""], ["PSBOXO6005", ""], ["PSBOXO6006", ""], ["PSBOXO6007", ""], ["PSBOXO6008", ""], ["PSBOXO6009", ""], ["SKBAXO6004", ""], ["SKBAXO6005", ""], ["SKBAXO6006", ""], ["SKBAXO6007", ""], ["SOBOXO6004", ""], ["SOBOXO6005", ""], ["SOBOXO6006", ""], ["SOBOXO6007", ""], ["STBSXO6003", ""], ["STBSXO6P02", ""], ["URBAXO6004", ""], ["URBAXO6005", ""], ["URBAXO6006", ""], ["URBAXO6007", ""], ["WABIXO6006", ""]], "voc_vi": [["GGBSVO6007", ""], ["GLBSVO6010", ""], ["PHBSVO6007", ""], ["CHBSVO6009", ""], ["ICBSVO6005", ""], ["MMBSVO6008", ""], ["STBSVO6004", ""], ["BTBLVO6007", ""], ["ZYBLVO6007", ""], ["BYBLVO6001", ""], ["WLBLVO6001", ""], ["MUBLVO6001", ""], ["CMBCVO6008", ""], ["PSBOVO6010", ""], ["ECBOVO6011", ""]], "mo_vi": [["ARBAMO6005", ""], ["ARBAMO6008", ""], ["ARBAMO6009", ""], ["ARBAMO6004", ""], ["BCBLMO6003", ""], ["BCBLMO6P03", ""], ["BCBLMO6004", ""], ["BCBLMO6P04", ""], ["BTBLMO6003", ""], ["BTBLMO6P03", ""], ["BTBLMO6004", ""], ["BTBLMO6P04", ""], ["CHBIMO6004", ""], ["CHBIMO6005", ""], ["CHBIMO6006", ""], ["CHBIMO6007", ""], ["FRBIMO6004", ""], ["FRBIMO6005", ""], ["FRBIMO6006", ""], ["FRBIMO6007", ""], ["GRBIMO6004", ""], ["GRBIMO6005", ""], ["GRBIMO6P06", ""], ["GRBIMO6P07", ""], ["RSBIMO6004", ""], ["RSBIMO6005", ""], ["RSBIMO6P06", ""], ["RSBIMO6P07", ""], ["SPBIMO6004", ""], ["SPBIMO6005", ""], ["SPBIMO6006", ""], ["SPBIMO6007", ""], ["GLBSMO6005", ""], ["GLBSMO6006", ""], ["PYBAMO6004", ""], ["PYBAMO6005", ""], ["PYBAMO6006", ""], ["PYBAMO6007", ""], ["SHBTMO6004", ""], ["SHBTMO6005", ""], ["SUBTMO6004", ""], ["SUBTMO6005", ""], ["ZYBLMO6003", ""], ["ZYBLMO6004", ""], ["ZYBLMO6P03", ""], ["ZYBLMO6P04", ""]], "no_vi": [["ARBANO6006", ""], ["ARBANO6007", ""], ["ARBANO6010", ""], ["ARBANO6011", ""], ["BCBLNO6005", ""], ["BCBLNO6P03", ""], ["BCBLNO6006", ""], ["BCBLNO6P04", ""], ["BTBLNO6005", ""], ["BTBLNO6006", ""], ["BTBLNO6P03", ""], ["BTBLNO6P04", ""], ["GLBSNO6007", ""], ["GLBSNO6008", ""], ["BNBANO6001", ""], ["BNBANO6002", ""], ["BNBANO6003", ""], ["BNBANO6004", ""], ["KLBANO6001", ""], ["KLBANO6002", ""], ["KLBANO6003", ""], ["KLBANO6004", ""], ["MLBANO6001", ""], ["MLBANO6002", ""], ["MLBANO6003", ""], ["MLBANO6004", ""], ["MRBANO6001", ""], ["MRBANO6002", ""], ["MRBANO6003", ""], ["MRBANO6004", ""], ["PBBANO6001", ""], ["PBBANO6002", ""], ["PBBANO6003", ""], ["PBBANO6004", ""], ["TMBANO6001", ""], ["TMBANO6002", ""], ["TMBANO6003", ""], ["TMBANO6004", ""], ["TLBANO6001", ""], ["TLBANO6002", ""], ["TLBANO6003", ""], ["TLBANO6004", ""], ["PYBANO6008", ""], ["PYBANO6009", ""], ["PYBANO6010", ""], ["PYBANO6011", ""], ["SHBTNO6006", ""], ["SHBTNO6007", ""], ["SBBIMNO6001", ""], ["SBBIMNO6002", ""], ["SUBTNO6006", ""], ["SUBTNO6007", ""], ["WABINO6001", ""], ["WABINO6002", ""], ["WABINO6003", ""], ["WABINO6004", ""], ["ZYBLNO6005", ""], ["ZYBLNO6006", ""], ["ZYBLNO6P03", ""], ["ZYBLNO6P04", ""]], "vac_vi": [["WLBLVA6002", "Environmental Education and Conservation"]]};
+
+/* ================= slots ================= */
+var SLOTS = ["vac_v","voc_v","mo_v","no_v","xo_v","vac_vi","voc_vi","mo_vi","no_vi","xo_vi"];
+var SLOT_LABEL = {vac_v:"VAC V",voc_v:"VOC V",mo_v:"MO V",no_v:"NO V",xo_v:"XO V",mo_vi:"MO VI",no_vi:"NO VI",xo_vi:"XO VI",vac_vi:"VAC VI",voc_vi:"VOC VI"};
+var STATUSES = ["Pending","Counselling Done","Seat Allotted","Reported","Cancelled"];
+
+var students = [
+  {id:1,enrol:"2026BOT001",name:"AMAN KUMAR",fac:"BSC2026/45",mobile:"9876543210",sem:"V",vac_v:"WLBLVA5001 — Fundamentals of Environment",voc_v:"ZYBLVO5007",mo_v:"BTBLMO5003",no_v:"BCBLNO5005",xo_v:"CHBSXO5003",mo_vi:"",no_vi:"",xo_vi:"",vac_vi:"",voc_vi:"",date:"2026-07-05",status:"Counselling Done",remarks:""},
+  {id:2,enrol:"2026BOT002",name:"SANA PARVEEN",fac:"BSC2026/46",mobile:"9876501234",sem:"V",vac_v:"",voc_v:"",mo_v:"ARBAMO5004",no_v:"",xo_v:"",mo_vi:"",no_vi:"",xo_vi:"",vac_vi:"",voc_vi:"",date:"2026-07-07",status:"Pending",remarks:""},
+  {id:3,enrol:"2026BOT003",name:"ROHAN VERMA",fac:"BSC2026/47",mobile:"9812345678",sem:"VI",vac_v:"",voc_v:"",mo_v:"",no_v:"",xo_v:"",mo_vi:"BTBLMO6003",no_vi:"BCBLNO6005",xo_vi:"",vac_vi:"WLBLVA6002 — Environmental Education and Conservation",voc_vi:"WLBLVO6001",date:"2026-07-10",status:"Pending",remarks:""}
+];
+var nextId = 4, query = "", autoOn = true, hist = [], future = [], applyingUndo = false, editOpen = null;
+
+/* ================= helpers ================= */
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function codeOf(v){return (v||"").split("—")[0].trim()}
+function toast(msg,ok){var t=document.createElement("div");t.className="toast "+(ok?"ok":"err");t.textContent=msg;document.body.appendChild(t);setTimeout(function(){t.classList.add("show")},10);setTimeout(function(){t.classList.remove("show");setTimeout(function(){t.remove()},300)},2600)}
+function needApp(what){toast(what+" runs on the live Flask app (server preview)",false)}
+function dmy(iso){if(!iso)return"";var p=iso.split("-");return p[2]+"-"+p[1]+"-"+p[0]}
+function findCourse(slot,val){var code=codeOf(val).toUpperCase();return (COURSES[slot]||[]).find(function(c){return c[0].toUpperCase()===code})||null}
+function paintHistory(){document.getElementById("undoBtn").disabled=!hist.length;document.getElementById("redoBtn").disabled=!future.length}
+function pushHist(h){if(applyingUndo)return;hist.push(h);future=[];paintHistory()}
+
+/* ================= undo / redo ================= */
+function snap(s){var o={};["date","status","enrol","name","fac","mobile","sem","remarks"].concat(SLOTS).forEach(function(k){o[k]=s[k]});return o}
+function applyUndo(from,to,label){
+  var h=from.pop();if(!h){paintHistory();return}
+  applyingUndo=true;
+  var here=snap(h.stu);Object.keys(h.snap).forEach(function(k){h.stu[k]=h.snap[k]});
+  to.push({stu:h.stu,snap:here});
+  applyingUndo=false;renderAll();toast(label,true);paintHistory();
+}
+document.getElementById("undoBtn").onclick=function(){applyUndo(hist,future,"Undone")};
+document.getElementById("redoBtn").onclick=function(){applyUndo(future,hist,"Redone")};
+document.addEventListener("keydown",function(e){if(!(e.ctrlKey||e.metaKey))return;
+  if(e.key==="z"&&!e.shiftKey){e.preventDefault();applyUndo(hist,future,"Undone")}
+  if(e.key==="y"||(e.key==="z"&&e.shiftKey)){e.preventDefault();applyUndo(future,hist,"Redone")}});
+
+/* ================= tabs + panels (generated) ================= */
+function renderTabs(){
+  var h='<button class="tab active" data-tab="main">▦&nbsp; Main Entry Sheet</button>';
+  SLOTS.forEach(function(s){h+='<button class="tab" data-tab="'+s+'"><span class="tab-badge b-'+s+'">'+SLOT_LABEL[s]+"</span>&nbsp; Sheet</button>"});
+  h+='<button class="tab" data-tab="courses">🗂&nbsp; Course Code Sheets</button>';
+  document.getElementById("tabs").innerHTML=h;
+  var p="";
+  SLOTS.forEach(function(s){
+    p+='<section class="tab-panel" id="panel-'+s+'"><div class="sheet-head"><h1><span class="tab-badge b-'+s+'">'+SLOT_LABEL[s]+'</span> Sheet</h1><p>Automatically separated from the Main Entry Sheet</p></div><div id="sheet-'+s+'"></div></section>';
+  });
+  p+='<section class="tab-panel" id="panel-courses"><div class="sheet-head"><h1>🗂 Course Code Sheets</h1><p>Official Semester-V catalogue (auto-categorized from code letters)</p></div><div id="coursesArea"></div></section>';
+  document.getElementById("panels").innerHTML=p;
+  document.querySelectorAll("#tabs .tab").forEach(function(tab){
+    tab.onclick=function(){switchTab(tab.dataset.tab)};
+  });
+}
+function switchTab(name){
+  document.querySelectorAll("#tabs .tab").forEach(function(t){t.classList.toggle("active",t.dataset.tab===name)});
+  document.querySelectorAll(".tab-panel").forEach(function(x){x.classList.remove("active")});
+  var p=document.getElementById("panel-"+name);if(p)p.classList.add("active");
+  renderAll();
+}
+
+/* ================= datalists + header ================= */
+function renderDatalists(){
+  document.getElementById("datalists").innerHTML=SLOTS.map(function(s){
+    return '<datalist id="dl-'+s+'">'+COURSES[s].map(function(c){return'<option value="'+esc(c[0]+(c[1]?" — "+c[1]:""))+'"></option>'}).join("")+"</datalist>";
+  }).join("");
+}
+function renderHead(){
+  var h='<th class="ocheck"><input type="checkbox" id="checkAll"></th><th>ENROLLMENT NO</th><th>STUDENT NAME</th>';
+  SLOTS.forEach(function(s){h+="<th>"+SLOT_LABEL[s].toUpperCase()+" (COURSE CODE ▼)</th>"});
+  h+="<th>COUNSELLING DATE</th><th>STATUS</th><th>ACTION</th>";
+  document.getElementById("mainHead").innerHTML=h;
+  document.getElementById("checkAll").onchange=function(){
+    var on=this.checked;
+    document.querySelectorAll(".row-check").forEach(function(c){c.checked=on});
+  };
+}
+
+/* ================= main table ================= */
+function mainFiltered(){
+  return students.filter(function(s){
+    if(!query)return true;
+    var hay=(s.enrol+" "+s.name+" "+s.fac+" "+s.mobile+" "+SLOTS.map(function(k){return s[k]}).join(" ")).toLowerCase();
+    return hay.indexOf(query)!==-1;
+  });
+}
+var NCOLS;
+function renderMain(){
+  var cols=4+SLOTS.length+2;NCOLS=cols;
+  var h="";
+  mainFiltered().forEach(function(s){
+    h+='<tr data-id="'+s.id+'">'
+      +'<td class="ocheck"><input type="checkbox" class="row-check" value="'+s.id+'"></td>'
+      +'<td><span class="mono">'+esc(s.enrol||"—")+'</span></td>'
+      +'<td><strong>'+esc(s.name)+'</strong><div class="submeta">'+esc([s.fac,s.mobile].filter(Boolean).join(" · "))+"</div></td>";
+    SLOTS.forEach(function(slot){
+      h+='<td><input class="cell-input" list="dl-'+slot+'" placeholder="Search CODE or Name…" value="'+esc(s[slot])+'" onchange="slotChange(this,'+s.id+',\''+slot+'\')"></td>';
+    });
+    h+='<td><input type="date" value="'+esc(s.date||"")+'" onchange="fieldChange(this,'+s.id+',\'date\')"></td>'
+      +'<td><select onchange="fieldChange(this,'+s.id+',\'status\')">'+STATUSES.map(function(st){return'<option'+(st===s.status?" selected":"")+'>'+st+"</option>"}).join("")+"</select></td>"
+      +'<td class="oactions">'
+      +'<button class="oico oico-green" title="Download slip (CSV)" onclick="slipCSV('+s.id+')">⬇</button>'
+      +'<button class="oico oico-blue" title="Edit" onclick="toggleEdit('+s.id+')">✎</button>'
+      +'<button class="oico" title="Print slip" onclick="printSlip('+s.id+')">🖨</button>'
+      +'<button class="oico oico-red" title="Delete" onclick="delStudent('+s.id+')">🗑</button>'
+      +"</td></tr>";
+    var open=(editOpen===s.id);
+    h+='<tr id="edit-'+s.id+'" class="editrow"'+(open?"":' style="display:none"')+'><td colspan="'+cols+'"><div class="editgrid">'
+      +'<label>Enrollment No<input value="'+esc(s.enrol||"")+'" onchange="fieldChange(this,'+s.id+',\'enrol\')"></label>'
+      +'<label>Student Name<input value="'+esc(s.name)+'" onchange="fieldChange(this,'+s.id+',\'name\')"></label>'
+      +'<label>Faculty No.<input value="'+esc(s.fac||"")+'" onchange="fieldChange(this,'+s.id+',\'fac\')"></label>'
+      +'<label>Mobile<input value="'+esc(s.mobile||"")+'" onchange="fieldChange(this,'+s.id+',\'mobile\')"></label>'
+      +'<label>Semester<select onchange="fieldChange(this,'+s.id+',\'sem\')"><option value="">--</option><option'+(s.sem==="V"?" selected":"")+'>V</option><option'+(s.sem==="VI"?" selected":"")+'>VI</option></select></label>'
+      +'<label>Remarks<input value="'+esc(s.remarks||"")+'" onchange="fieldChange(this,'+s.id+',\'remarks\')"></label>'
+      +"</div></td></tr>";
+  });
+  document.getElementById("mainBody").innerHTML=h||('<tr><td colspan="'+cols+'" class="empty">No records — add a student above.</td></tr>');
+}
+
+function slotChange(el,id,slot){
+  var s=students.find(function(x){return x.id===id});
+  var before=snap(s),val=el.value.trim();
+  if(!val){pushHist({stu:s,snap:before});s[slot]="";el.classList.add("slot-ok");toast("Slot cleared",true);return}
+  var c=findCourse(slot,val);
+  if(!c){el.classList.add("slot-error");toast("Unknown code for "+SLOT_LABEL[slot]+" — add it in Course Code Sheets",false);return}
+  var combo=c[0]+(c[1]?" — "+c[1]:"");
+  pushHist({stu:s,snap:before});
+  s[slot]=combo;el.value=combo;el.classList.remove("slot-error");el.classList.add("slot-ok");
+  renderSheets();
+  toast("Saved "+combo+" → "+SLOT_LABEL[slot]+" Sheet updated automatically",true);
+}
+function fieldChange(el,id,field){
+  var s=students.find(function(x){return x.id===id});
+  var before=snap(s);pushHist({stu:s,snap:before});
+  s[field]=el.value;el.classList.add("slot-ok");toast("Saved",true);
+  if(["enrol","name","fac","mobile"].indexOf(field)!==-1)renderSheets();
+}
+function toggleEdit(id){var r=document.getElementById("edit-"+id);var show=r.style.display==="none";editOpen=show?id:null;r.style.display=show?"":"none"}
+
+/* ================= add / delete ================= */
+function clearForm(focus){document.getElementById("addForm").reset();if(focus)document.getElementById("f_enrol").focus()}
+function addStudent(ev){
+  ev.preventDefault();
+  var name=document.getElementById("f_name").value.trim();
+  if(!name){toast("Student Name is required",false);return false}
+  var enrol=document.getElementById("f_enrol").value.trim();
+  if(enrol&&students.some(function(s){return (s.enrol||"").toUpperCase()===enrol.toUpperCase()})){toast('Enrollment No "'+enrol+'" already exists',false);return false}
+  var s={id:nextId++,enrol:enrol,name:name,fac:document.getElementById("f_fac").value.trim(),
+    mobile:document.getElementById("f_mobile").value.trim(),sem:document.getElementById("f_sem").value,
+    date:"",status:document.getElementById("f_status").value,remarks:document.getElementById("f_remarks").value.trim()};
+  SLOTS.forEach(function(k){s[k]=""});
+  var code=document.getElementById("f_code").value;
+  if(code){var slot=Object.keys(SLOT_LABEL).find(function(k){return SLOT_LABEL[k]===document.getElementById("f_ctype").value});var c=(COURSES[slot]||[]).find(function(x){return x[0]===code});if(c)s[slot]=c[0]+(c[1]?" — "+c[1]:"");}
+  students.push(s);clearForm(true);renderAll();
+  toast("Student E"+s.id+" — "+name+" saved · course sheets updated",true);return false;
+}
+function delStudent(id){if(!confirm("Delete record E"+id+"?"))return;students=students.filter(function(s){return s.id!==id});renderAll();toast("Record deleted",true)}
+document.getElementById("bulkBtn").onclick=function(){
+  var ids=[].slice.call(document.querySelectorAll(".row-check:checked")).map(function(c){return parseInt(c.value)});
+  if(!ids.length){toast("Tick records to delete first",false);return}
+  if(!confirm("Delete "+ids.length+" selected record(s)?"))return;
+  students=students.filter(function(s){return ids.indexOf(s.id)===-1});renderAll();toast(ids.length+" record(s) deleted",true);
+};
+
+/* ================= auto save ================= */
+var autoBtn=document.getElementById("autoBtn");
+function paintAuto(){autoBtn.classList.toggle("obtn-dim",!autoOn);autoBtn.textContent=autoOn?"⟳ Auto Save":"⏸ Auto Save Off"}
+autoBtn.onclick=function(){autoOn=!autoOn;paintAuto();toast("Auto Save "+(autoOn?"enabled":"disabled"),autoOn)};
+paintAuto();
+
+/* ================= course type <-> code/name dropdowns ================= */
+var fCtype=document.getElementById("f_ctype"),fCode=document.getElementById("f_code"),fName=document.getElementById("f_cname");
+function syncPickers(){
+  var slot=Object.keys(SLOT_LABEL).find(function(k){return SLOT_LABEL[k]===fCtype.value});
+  var list=COURSES[slot]||[];
+  fCode.innerHTML='<option value="">-- Select Course Code --</option>'+list.map(function(c){return'<option value="'+c[0]+'">'+c[0]+"</option>"}).join("");
+  fName.innerHTML='<option value="">-- Select Course Name --</option>'+list.map(function(c){return'<option value="'+c[0]+'">'+esc(c[1]||"(title pending)")+"</option>"}).join("");
+}
+function fillTypes(){fCtype.innerHTML=SLOTS.map(function(s){return"<option>"+SLOT_LABEL[s]+"</option>"}).join("");}
+fCtype.onchange=syncPickers;
+fCode.onchange=function(){fName.value=fCode.value;maybeAuto()};
+fName.onchange=function(){fCode.value=fName.value;maybeAuto()};
+function maybeAuto(){if(autoOn&&document.getElementById("f_name").value.trim()&&fCode.value)document.getElementById("addBtn").click()}
+
+/* ================= search ================= */
+document.getElementById("rowSearch").addEventListener("input",function(){query=this.value.trim().toLowerCase();renderMain()});
+
+/* ================= slot sheets (auto-split per paper code, incl. empty) ================= */
+function renderSheets(){
+  SLOTS.forEach(function(slot){
+    var area=document.getElementById("sheet-"+slot);if(!area)return;
+    var dash=SLOT_LABEL[slot].replace(" ","-");
+    var groups={};
+    students.filter(function(s){return s[slot]}).forEach(function(s){(groups[codeOf(s[slot])]=groups[codeOf(s[slot])]||[]).push(s)});
+    var chips='<div class="toolbar-row no-print"><button class="obtn">All paper codes · '+(COURSES[slot]||[]).length+'</button>'
+      +(COURSES[slot]||[]).map(function(c){var n=(groups[c[0]]||[]).length;return'<button class="obtn'+(n?" obtn-blue":"")+'" onclick="document.getElementById(\'code-'+slot+'-'+c[0]+'\').scrollIntoView()">'+c[0]+' <span class="chip-count">'+n+"</span></button>"}).join("")+"</div>";
+    var h="";
+    (COURSES[slot]||[]).forEach(function(cEntry){
+      var c=cEntry[0],title=cEntry[1]||"",rows=groups[c]||[];
+      h+='<div class="table-card" id="code-'+slot+'-'+c+'"><div class="oec-course-head"><span class="oec-tab-badge b-'+slot+'">'+dash+'</span> <strong class="oec-big-code">'+c+'</strong>'
+        +(title?' <span class="oec-course-title">'+esc(title)+'</span>':'')
+        +' <span class="oec-course-count'+(rows.length?' has':'')+'">'+rows.length+'</span>'
+        +' <span class="oec-course-actions"><button class="obtn obtn-green obtn-xs" onclick="quickAdd(\''+slot+'\',\''+c+'\')">＋ Add</button>'
+        +'<button class="obtn obtn-blue obtn-xs" onclick="sectionCSV(\''+slot+'\',\''+c+'\')">⬇ Excel</button>'
+        +' <button class="obtn obtn-xs" onclick="needApp(\'Per-code PDF\')">⬇ PDF</button>'
+        +' <button class="obtn obtn-xs" onclick="needApp(\'Per-code Print\')">🖨 Print</button></span></div>'
+        +'<div class="table-scroll"><table class="otable" style="min-width:1050px"><thead><tr><th>S.No</th><th>Enroll</th><th>Name</th><th>Faculty</th><th>Course Code</th><th>Sem</th><th>Date</th><th>Status</th><th>QR</th><th>Action</th></tr></thead><tbody>'
+        +(rows.length?rows.map(function(s,i){return"<tr><td>"+(i+1)+'</td><td><span class="mono">'+esc(s.enrol||"—")+"</span></td><td><strong>"+esc(s.name)+"</strong></td><td>"+esc(s.fac||"—")+"</td>"
+          +'</td><td><span class="mono">'+c+"</span></td><td>"+(s.sem||"—")+"</td><td>"+dmy(s.date)+"</td><td>"+s.status+"</td>"
+          +'<td><button class="oico" title="QR (live app)" onclick="needApp(\'QR image\')">▦</button></td>'
+          +'<td class="oactions"><button class="oico oico-green" onclick="slipCSV('+s.id+')">⬇</button>'
+          +'<button class="oico" onclick="printSlip('+s.id+')">🖨</button></td>'+"</tr>"}).join("")
+          :'<tr><td colspan="10" class="empty">No students in '+c+' yet.</td></tr>')
+        +"</tbody></table></div></div>";
+    });
+    area.innerHTML=chips+(h||'<div class="table-card"><p class="empty">No paper codes configured for '+SLOT_LABEL[slot]+'.</p></div>');
+  });
+}
+
+/* ================= course master tab (editable + add + cascade) ================= */
+function courseRow(slot,i){
+  var c=COURSES[slot][i];
+  var h='<tr>'
+    +'<td>'+(i+1)+'</td>'
+    +'<td><input class="cell-input" style="min-width:140px" value="'+esc(c[0])+'" onchange="courseEditCode(\''+slot+'\','+i+',this)"></td>'
+    +'<td><input class="cell-input" style="min-width:230px" value="'+esc(c[1]||"")+'" placeholder="(no title needed — code only is fine)" onchange="courseEditTitle(\''+slot+'\','+i+',this)"></td>'
+    +'<td class="oactions"><button class="oico oico-red" title="Delete code" onclick="courseDel(\''+slot+'\','+i+')">🗑</button></td>'
+    +"</tr>";
+  return h;
+}
+function courseGroupCard(slot,label,note){
+  var list=COURSES[slot]||[];
+  var rows=list.map(function(c,i){return courseRow(slot,i)}).join("");
+  // add-code row
+  rows+='<tr><td>＋</td>'
+    +'<td><input class="cell-input" style="min-width:140px" id="add-'+slot+'-code" placeholder="New code…"></td>'
+    +'<td><input class="cell-input" style="min-width:230px" id="add-'+slot+'-title" placeholder="Title (optional)"></td>'
+    +'<td class="oactions"><button class="oico oico-green" title="Add code" onclick="courseAdd(\''+slot+'\')">＋</button></td></tr>';
+  return '<div class="table-card" id="cg-'+slot+'"><h2 class="card-head"><span class="tab-badge b-'+slot+'">'+label+"</span> — "+list.length+" course(s)"
+    +(note?' <span style="color:var(--muted);font-weight:400;font-size:.8rem">'+note+"</span>":"")
+    +'</h2><div class="table-scroll"><table class="otable" style="min-width:640px"><thead><tr><th>#</th><th>COURSE CODE *</th><th>COURSE TITLE (optional)</th><th>ACTION</th></tr></thead><tbody>'+rows+"</tbody></table></div></div>";
+}
+function renderCourses(){
+  var labelOrder=["VAC V","VOC V","MO V","NO V","XO V","VAC VI","VOC VI","MO VI","NO VI","XO VI"];
+  var h=labelOrder.map(function(label){
+    var slot=Object.keys(SLOT_LABEL).find(function(k){return SLOT_LABEL[k]===label});
+    return courseGroupCard(slot,label,"");
+  }).join("");
+  h+=[["mj_v","MJ V"],["mj_vi","MJ VI"]].map(function(g){
+    return courseGroupCard(g[0],g[1],"(Major stream — catalogue only, no assignment column)");
+  }).join("");
+  document.getElementById("coursesArea").innerHTML=h;
+}
+
+/* edit code: live-update + cascade into any student rows that used the old code */
+function courseEditCode(slot,i,el){
+  var val=el.value.trim().toUpperCase();
+  var bucket=COURSES[slot];
+  if(!val){toast("Course code cannot be empty",false);el.value=bucket[i][0];return}
+  if(bucket.some(function(c,j){return j!==i&&c[0].toUpperCase()===val})){
+    toast("Duplicate code "+val+" in this group",false);el.value=bucket[i][0];return;}
+  var old=bucket[i][0];
+  bucket[i][0]=val;
+  var title=bucket[i][1]||"";
+  var moved=0;
+  students.forEach(function(s){
+    if(codeOf(s[slot])===old){s[slot]=val+(title?" — "+title:"");moved++}
+  });
+  renderDatalists();renderMain();toast(val+" saved"+(moved?" · main sheet auto-updated ("+moved+" record(s))":""),true);
+}
+function courseEditTitle(slot,i,el){
+  var bucket=COURSES[slot];
+  bucket[i][1]=el.value.trim();
+  var code=bucket[i][0];
+  var title=bucket[i][1];
+  var touched=0;
+  students.forEach(function(s){
+    if(codeOf(s[slot])===code){s[slot]=code+(title?" — "+title:"");touched++}
+  });
+  renderDatalists();renderMain();toast("Title saved"+(touched?" · "+touched+" record(s) auto-updated":""),true);
+}
+function courseDel(slot,i){
+  var code=COURSES[slot][i][0];
+  var used=students.filter(function(s){return codeOf(s[slot])===code}).length;
+  if(used){toast("Code "+code+" is used by "+used+" student(s) — you can still edit it; delete blocked in preview",false);return}
+  if(!confirm("Delete code "+code+"?"))return;
+  COURSES[slot].splice(i,1);
+  renderDatalists();renderCourses();toast(code+" deleted",true);
+}
+function courseAdd(slot){
+  var codeEl=document.getElementById("add-"+slot+"-code");
+  var titleEl=document.getElementById("add-"+slot+"-title");
+  var code=codeEl.value.trim().toUpperCase();
+  if(!code){toast("Course code is required",false);codeEl.focus();return}
+  if((COURSES[slot]||[]).some(function(c){return c[0].toUpperCase()===code})){
+    toast("Code "+code+" already exists in this group",false);return;}
+  COURSES[slot].push([code,titleEl.value.trim()]);
+  codeEl.value="";titleEl.value="";
+  renderDatalists();renderCourses();
+  toast("Course added to "+SLOT_LABEL[slot]+" — now selectable in the Main Entry Sheet",true);
+}
+
+/* ================= downloads / print ================= */
+function csvEsc(v){v=String(v||"");return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function mainRows(){
+  var head=["S.No","Enrollment No","Student Name","Faculty No.","Mobile","Semester"].concat(SLOTS.map(function(s){return SLOT_LABEL[s]+" (Course Code)"})).concat(["Counselling Date","Status","Remarks"]);
+  var rows=students.map(function(s,i){return[i+1,s.enrol,s.name,s.fac,s.mobile,s.sem].concat(SLOTS.map(function(k){return s[k]})).concat([dmy(s.date),s.status,s.remarks])});
+  return [head].concat(rows);
+}
+function sampleRows(){return [mainRows()[0],[1,"2026BOT001","AMAN KUMAR","BSC2026/45","9876543210","V","WLBLVA5001","ZYBLVO5007","BTBLMO5003","","","","","05-07-2026","Pending",""]]}
+function downloadCSV(rows,filename){
+  var csv=rows.map(function(r){return r.map(csvEsc).join(",")}).join("\n");
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv"}));
+  a.download=filename;a.click();URL.revokeObjectURL(a.href);
+  toast("Downloaded "+filename,true);
+}
+function slipCSV(id){
+  var s=students.find(function(x){return x.id===id});
+  var rows=[["Field","Value"],["Record ID","E"+s.id],["Enrollment No",s.enrol],["Student Name",s.name],["Faculty No.",s.fac],["Mobile",s.mobile],["Semester",s.sem]];
+  SLOTS.forEach(function(k){rows.push([SLOT_LABEL[k]+" — Course",s[k]])});
+  rows.push(["Counselling Date",dmy(s.date)],["Status",s.status],["Remarks",s.remarks]);
+  downloadCSV(rows,"Counselling_Slip_E"+s.id+".csv");
+}
+function sectionCSV(slot,code){
+  var rows=[["S.No","Enrollment No","Student Name","Faculty No.","Mobile","Course Code","Counselling Date","Status","Remarks"]];
+  students.filter(function(s){return codeOf(s[slot])===code}).forEach(function(s,i){
+    rows.push([i+1,s.enrol,s.name,s.fac,s.mobile,code,dmy(s.date),s.status,s.remarks]);
+  });
+  downloadCSV(rows,SLOT_LABEL[slot].replace(" ","_")+"_"+code+".csv");
+}
+/* quick-add: jump to main entry sheet with course type + code pre-filled */
+function quickAdd(slot,code){
+  switchTab("main");
+  var fC=document.getElementById("f_ctype");fC.value=SLOT_LABEL[slot];
+  syncPickers();
+  var fCode=document.getElementById("f_code");fCode.value=code;
+  fCode.dispatchEvent(new Event("change"));
+  document.getElementById("f_enrol").focus();
+  document.getElementById("addForm").scrollIntoView({behavior:"smooth"});
+}
+function printMain(){
+  var rows=mainRows();
+  var h='<h2>ALIGARH MUSLIM UNIVERSITY, ALIGARH</h2><p class="sub">Department of Botany · B.Sc. Student Portal — Main Entry Sheet (MO/NO/XO · VAC/VOC) · Session 2026-27 · '+(rows.length-1)+" record(s)</p><table><thead><tr>"+rows[0].map(function(c){return"<th>"+esc(c)+"</th>"}).join("")+"</tr></thead><tbody>";
+  rows.slice(1).forEach(function(r){h+="<tr>"+r.map(function(c){return"<td>"+esc(c)+"</td>"}).join("")+"</tr>"});
+  h+='</tbody></table><div class="sign"><div><span class="sline"></span>Checked by</div><div><span class="sline"></span>Convener, Counselling Cell</div><div><span class="sline"></span>Chairman, Dept. of Botany</div></div>';
+  document.getElementById("printArea").innerHTML=h;window.print();
+}
+function printSlip(id){
+  var s=students.find(function(x){return x.id===id});
+  var rows=[["Record ID","E"+s.id],["Enrollment No",s.enrol],["Student Name",s.name],["Faculty No.",s.fac],["Mobile",s.mobile],["Semester",s.sem]];
+  SLOTS.forEach(function(k){rows.push([SLOT_LABEL[k]+" — Course",s[k]])});
+  rows.push(["Counselling Date",dmy(s.date)],["Status",s.status],["Remarks",s.remarks]);
+  var h='<h2>ALIGARH MUSLIM UNIVERSITY, ALIGARH</h2><p class="sub">Department of Botany · Counselling Slip · Session 2026-27</p><table><tbody>'
+    +rows.map(function(r){return"<tr><th style='width:34%'>"+r[0]+"</th><td>"+esc(r[1]||"—")+"</td></tr>"}).join("")
+    +'</tbody></table><div class="sign"><div><span class="sline"></span>Checked by</div><div><span class="sline"></span>Convener, Counselling Cell</div></div>';
+  document.getElementById("printArea").innerHTML=h;window.print();
+}
+
+/* ================= boot ================= */
+function renderAll(){renderDatalists();renderMain();renderSheets();renderCourses();paintHistory()}
+renderTabs();fillTypes();syncPickers();renderHead();renderAll();
+</script>
+</body>
+</html>

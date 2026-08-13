@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Mentor Directory{% endblock %}
+{% block content %}
+
+<section class="page-head">
+  <div class="container">
+    <p class="breadcrumb"><a href="{{ url_for('home') }}">Home</a> / Mentor Directory</p>
+    <h1>Mentor Directory — Session {{ SESSION }}</h1>
+    <p class="page-lead">Faculty mentors assigned for B.Sc. V Semester mentoring. Meet during the weekly slot, or book a one-to-one appointment.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="mentor-grid">
+      {% for m in mentors %}
+      <article class="card mentor-card">
+        <div class="mentor-top">
+          <div class="avatar" aria-hidden="true">{{ m.name.split()[-2][0] if m.name.split()[-1]|length == 1 else m.name.split()[1][0] }}{{ m.name.split()[-1][0] }}</div>
+          <div>
+            <h3>{{ m.name }}</h3>
+            <p class="muted">{{ m.designation }}, Dept. of {{ m.department }}</p>
+          </div>
+        </div>
+        <ul class="mentor-meta">
+          <li><span>🕑 Weekly slot</span><strong>{{ m.day }}, {{ m.slot }}</strong></li>
+          <li><span>📍 Venue</span><strong>{{ m.room }}</strong></li>
+          <li><span>🎯 Focus</span><strong>{{ m.focus }}</strong></li>
+          <li><span>✉️ E-mail</span><strong><a href="mailto:{{ m.email }}">{{ m.email }}</a></strong></li>
+        </ul>
+        <a class="btn btn-primary btn-block" href="{{ url_for('appointment', mentor=m.id) }}">Book appointment</a>
+      </article>
+      {% else %}
+      <p class="empty">The mentor list will be published shortly.</p>
+      {% endfor %}
+    </div>
+    <p class="fineprint">Mentor names shown are published by the Counselling Cell for Session {{ SESSION }}. Any change of mentor must be requested through a <a href="{{ url_for('grievance') }}">grievance</a> with a valid reason.</p>
+  </div>
+</section>
+
+{% endblock %}

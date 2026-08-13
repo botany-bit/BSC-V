@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Counselling Slip — E{{ s.id }}{% endblock %}
+{% block content %}
+
+<section class="section">
+  <div class="container" style="max-width: 760px">
+
+    <div class="card no-print print-toolbar">
+      <div class="cta-row">
+        <button class="btn btn-gold" onclick="window.print()">🖨 Print Slip</button>
+        <a class="btn btn-ghost" href="{{ url_for('oec_main') }}">← Back to Main Entry Sheet</a>
+        <a class="btn btn-ghost" href="{{ url_for('oec_student_pdf', sid=s.id) }}">📕 Download PDF</a>
+      </div>
+    </div>
+
+    <div class="print-sheet">
+      <div class="ps-head">
+        <h2>ALIGARH MUSLIM UNIVERSITY, ALIGARH</h2>
+        <p class="ps-sub">{{ DEPT }} · B.Sc. Student Portal — Counselling Slip · Session {{ SESSION }}</p>
+      </div>
+
+      <table class="print-table slip-table">
+        <tbody>
+          <tr><th>Record ID</th><td>E{{ s.id }}</td></tr>
+          <tr><th>Enrollment No</th><td>{{ s.enrolment_no or '—' }}</td></tr>
+          <tr><th>Student Name</th><td>{{ s.student_name }}</td></tr>
+          <tr><th>Faculty No.</th><td>{{ s.faculty_no or '—' }}</td></tr>
+          <tr><th>Mobile</th><td>{{ s.mobile or '—' }}</td></tr>
+          <tr><th>Semester</th><td>{{ s.semester or '—' }}</td></tr>
+          {% for key, typ, sem, label in OEC_SLOTS %}
+          <tr><th>{{ label }} — Course</th><td>{{ combo(s[key ~ '_code'], s[key ~ '_title']) or '—' }}</td></tr>
+          {% endfor %}
+          <tr><th>Counselling Date</th><td>{{ fmt(s.counselling_date) or '—' }}</td></tr>
+          <tr><th>Status</th><td>{{ s.status or 'Pending' }}</td></tr>
+          <tr><th>Remarks</th><td>{{ s.remarks or '—' }}</td></tr>
+        </tbody>
+      </table>
+
+      <div class="ps-sign">
+        <div class="sig"><span class="sig-line"></span>Checked by</div>
+        <div class="sig"><span class="sig-line"></span>Convener, Counselling Cell</div>
+      </div>
+      <p class="ps-meta" style="text-align:center; margin-top:22px">Generated on {{ today }} · Bring this slip with your University ID card on the counselling date.</p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.print-toolbar { margin-bottom: 18px; }
+.print-sheet { background: #fff; border: 1px solid var(--line); padding: 26px 30px; }
+.ps-head { text-align: center; margin-bottom: 14px; }
+.ps-head h2 { margin: 0; color: var(--green); font-size: 1.25rem; letter-spacing: .5px; }
+.ps-sub { margin: 2px 0; color: var(--muted); font-size: .85rem; }
+.slip-table { width: 100%; border-collapse: collapse; font-size: .95rem; margin-top: 10px; }
+.slip-table th { background: #eef6f0; border: 1px solid #b9cfc2; padding: 8px 10px; text-align: left; width: 34%; font-size: .85rem; }
+.slip-table td { border: 1px solid #b9cfc2; padding: 8px 10px; }
+.ps-sign { display: flex; justify-content: space-between; gap: 24px; margin-top: 56px; }
+.sig { flex: 1; text-align: center; font-size: .82rem; font-weight: 600; color: #33453c; }
+.sig-line { display: block; border-top: 1.5px solid #33453c; margin-bottom: 6px; }
+.ps-meta { color: var(--muted); font-size: .8rem; }
+@media print {
+  .site-header, .site-footer, .no-print, .flash-wrap { display: none !important; }
+  body { background: #fff; }
+  .section { padding: 0; } .container { max-width: none; padding: 0; }
+  .print-sheet { border: 0; padding: 0; }
+  @page { size: A4 portrait; margin: 14mm; }
+}
+</style>
+
+{% endblock %}

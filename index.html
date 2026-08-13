@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<section class="hero">
+  <div class="container hero-inner">
+    <span class="hero-badge">Session {{ SESSION }} · Faculty of Science</span>
+    <h1>B.Sc. (V Semester) Counselling Portal<br><span>{{ COLLEGE }}</span></h1>
+    <p class="hero-lead">
+      One portal for everything this semester — mentor allotment and academic mentoring for
+      B.Sc. V Semester students, and round-wise admission counselling for new entrants.
+      Register online, book mentor appointments, track notices, and raise grievances.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-gold" href="{{ url_for('register') }}">Register for Counselling</a>
+      <a class="btn btn-outline-light" href="{{ url_for('appointment') }}">Book Mentor Appointment</a>
+    </div>
+  </div>
+</section>
+
+<section class="stats-band">
+  <div class="container stats-grid">
+    <div class="stat"><span class="stat-num">{{ mentor_count }}</span><span class="stat-label">Faculty Mentors</span></div>
+    <div class="stat"><span class="stat-num">8</span><span class="stat-label">Departments Covered</span></div>
+    <div class="stat"><span class="stat-num">2</span><span class="stat-label">Counselling Tracks</span></div>
+    <div class="stat"><span class="stat-num">0 ₹</span><span class="stat-label">Registration Fee</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Choose your counselling track</h2>
+    <p class="section-sub">Both tracks are managed by the Counselling Cell, Faculty of Science.</p>
+
+    <div class="cards two">
+      <article class="card track-card">
+        <div class="track-icon" aria-hidden="true">🎓</div>
+        <h3>Academic Counselling <span class="tag tag-academic">Current Students</span></h3>
+        <p>For students presently enrolled in <strong>B.Sc. V Semester (Session {{ SESSION }})</strong>:</p>
+        <ul class="tick-list">
+          <li>Mentor–mentee registration and allotment</li>
+          <li>Weekly mentoring / counselling slots</li>
+          <li>Book a one-to-one appointment with your mentor</li>
+          <li>Backlog, exam-prep, career and well-being guidance</li>
+          <li>Online grievance submission</li>
+        </ul>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="{{ url_for('register', type='academic') }}">Register (V Sem)</a>
+          <a class="btn btn-ghost" href="{{ url_for('academic') }}">Details →</a>
+        </div>
+      </article>
+
+      <article class="card track-card">
+        <div class="track-icon" aria-hidden="true">📝</div>
+        <h3>Admission Counselling <span class="tag tag-admission">New Entrants</span></h3>
+        <p>For candidates shortlisted for <strong>admission to B.Sc. (Hons.) {{ SESSION }}</strong>:</p>
+        <ul class="tick-list">
+          <li>Counselling registration &amp; choice filling</li>
+          <li>Subject-combination preferences and seat matrix</li>
+          <li>Round-wise provisional allotment lists</li>
+          <li>Document verification schedule &amp; checklist</li>
+          <li>Reporting, upgradation and withdrawal rules</li>
+        </ul>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="{{ url_for('register', type='admission') }}">Register (Admission)</a>
+          <a class="btn btn-ghost" href="{{ url_for('admission') }}">Details →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <h2 class="section-title">Important dates</h2>
+    <p class="section-sub">All dates are for Session {{ SESSION }}. In case of any change, a fresh notice will be published.</p>
+
+    <div class="cards two">
+      <div class="card">
+        <h3 class="card-head">🎓 Academic counselling — B.Sc. V Semester</h3>
+        <div class="table-scroll">
+        <table class="table">
+          <thead><tr><th>Activity</th><th>Date(s)</th></tr></thead>
+          <tbody>
+            <tr><td>Mentor–mentee online registration</td><td>17 – 25 Aug 2026</td></tr>
+            <tr><td>Mentor allotment display</td><td>24 Aug 2026</td></tr>
+            <tr><td>First mentor–mentee meeting (last date)</td><td>31 Aug 2026</td></tr>
+            <tr><td>Mid-semester mentoring review</td><td>28 Sep – 03 Oct 2026</td></tr>
+            <tr><td>Pre-exam counselling / doubt clinics</td><td>02 – 13 Nov 2026</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-head">📝 Admission counselling — Round 1</h3>
+        <div class="table-scroll">
+        <table class="table">
+          <thead><tr><th>Activity</th><th>Date(s)</th></tr></thead>
+          <tbody>
+            <tr><td>Counselling registration (online)</td><td>17 – 25 Aug 2026</td></tr>
+            <tr><td>Choice filling &amp; locking</td><td>18 – 26 Aug 2026</td></tr>
+            <tr><td>Provisional allotment — Round 1</td><td>28 Aug 2026</td></tr>
+            <tr><td>Reporting &amp; document verification</td><td>29 Aug – 02 Sep 2026</td></tr>
+            <tr><td>Round 2 (upgradation) allotment</td><td>05 Sep 2026</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head-row">
+      <div>
+        <h2 class="section-title">Latest notices</h2>
+        <p class="section-sub">Official announcements from the Counselling Cell.</p>
+      </div>
+      <a class="btn btn-ghost" href="{{ url_for('notices') }}">View all →</a>
+    </div>
+
+    <div class="notice-list">
+      {% for n in notices %}
+      <article class="notice-item">
+        <div class="notice-date">
+          <span class="nd-day">{{ n.published_on[8:10] }}</span>
+          <span class="nd-month">{{ n.published_on[5:7] }}/{{ n.published_on[0:4] }}</span>
+        </div>
+        <div class="notice-body">
+          <span class="tag tag-{{ n.tag|lower }}">{{ n.tag }}</span>
+          <h3>{{ n.title }}</h3>
+          <p>{{ n.body }}</p>
+        </div>
+      </article>
+      {% else %}
+      <p class="empty">No notices published yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container cta-inner">
+    <div>
+      <h2>Need one-to-one guidance this semester?</h2>
+      <p>Book a 30-minute slot with your subject mentor — free, confidential and open to every B.Sc. V Semester student.</p>
+    </div>
+    <a class="btn btn-gold" href="{{ url_for('appointment') }}">Book an Appointment</a>
+  </div>
+</section>
+
+{% endblock %}

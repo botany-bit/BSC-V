@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}FAQ{% endblock %}
+{% block content %}
+
+<section class="page-head">
+  <div class="container">
+    <p class="breadcrumb"><a href="{{ url_for('home') }}">Home</a> / FAQ</p>
+    <h1>Frequently Asked Questions</h1>
+    <p class="page-lead">Quick answers about mentoring, admission counselling, appointments and grievances for Session {{ SESSION }}.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container faq-wrap">
+
+    <h2 class="section-title">Academic counselling (B.Sc. V Semester)</h2>
+
+    <details class="faq-item">
+      <summary>Is mentor–mentee registration compulsory? Is there any fee?</summary>
+      <p>Yes, registration is compulsory for every student of B.Sc. V Semester so that a faculty mentor can be allotted to you. There is <strong>no fee</strong> for registration or for any mentoring session.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How will I know who my mentor is?</summary>
+      <p>The allotment list is displayed as per the schedule (Session {{ SESSION }}: from 24 August 2026) on this portal and the Faculty notice board. You can also check the <a href="{{ url_for('mentors') }}">Mentor Directory</a> for your mentor's weekly slot and room.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How often should I meet my mentor?</summary>
+      <p>At least once every fortnight. The first meeting for {{ SESSION }} must be completed by 31 August 2026, followed by a mid-semester review in late September / early October.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Can I change my allotted mentor?</summary>
+      <p>Mentor change is permitted only in exceptional circumstances. Submit a <a href="{{ url_for('grievance') }}">grievance</a> under "Academic / Mentoring" with a valid reason; the Convener, Counselling Cell takes the final decision.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is the discussion with my mentor confidential?</summary>
+      <p>Yes. Mentoring conversations are confidential. Only a brief record of the meeting (date, broad topic, action plan) is maintained for University records.</p>
+    </details>
+
+    <h2 class="section-title">Admission counselling (new entrants)</h2>
+
+    <details class="faq-item">
+      <summary>Can I edit my choices after locking?</summary>
+      <p>No. Choices once locked cannot be modified. You may re-order or add choices any number of times <em>before</em> locking within the choice-filling window (18 – 26 August 2026).</p>
+    </details>
+    <details class="faq-item">
+      <summary>What if I miss the Round-1 reporting dates?</summary>
+      <p>The allotted seat is cancelled automatically and offered in the next round. You may participate in later rounds if you had not withdrawn your registration.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What is "upgradation"?</summary>
+      <p>If you accept a seat but opt for upgradation, you are automatically considered for your higher preferences in the next round. If upgraded, you must accept the new seat; the previous one goes back into the pool.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Which documents must be in original?</summary>
+      <p>Class X certificate, Class XII marksheet &amp; certificate, transfer/migration certificate, character certificate, and category certificate (if claimed) must be produced in original at verification, along with one set of self-attested photocopies.</p>
+    </details>
+
+    <h2 class="section-title">Appointments &amp; grievances</h2>
+
+    <details class="faq-item">
+      <summary>Can I cancel or reschedule an appointment?</summary>
+      <p>Contact the Counselling Cell helpdesk or your mentor by e-mail at least one working day in advance, quoting your appointment ID (A…), and book a fresh slot on the portal.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How long does a grievance take to resolve?</summary>
+      <p>The Counselling Cell responds within 3 working days. Matters needing inquiry may take longer; you will be informed of the current status by e-mail.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Whom do I contact for technical issues with this portal?</summary>
+      <p>Write to the helpdesk at <a href="mailto:sci.counselling@amu.ac.in">sci.counselling@amu.ac.in</a> with a screenshot and your reference ID. See the <a href="{{ url_for('contact') }}">Contact page</a> for office hours.</p>
+    </details>
+
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Contact{% endblock %}
+{% block content %}
+
+<section class="page-head">
+  <div class="container">
+    <p class="breadcrumb"><a href="{{ url_for('home') }}">Home</a> / Contact</p>
+    <h1>Contact the Counselling Cell</h1>
+    <p class="page-lead">Reach out for any question about mentoring, admissions, appointments or this portal.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cards three">
+      <div class="card mini-card">
+        <h3>📍 Office</h3>
+        <p>Counselling Cell,<br>Faculty of Science,<br>{{ COLLEGE }},<br>Uttar Pradesh 202002, India</p>
+      </div>
+      <div class="card mini-card">
+        <h3>✉️ E-mail &amp; phone</h3>
+        <p><a href="mailto:sci.counselling@amu.ac.in">sci.counselling@amu.ac.in</a><br>
+        Helpdesk: +91-571-270-XXXX<br>
+        <span class="muted">(Mon–Sat, working hours)</span></p>
+      </div>
+      <div class="card mini-card">
+        <h3>🕑 Office hours</h3>
+        <p>Mon–Thu: 10:00 AM – 4:30 PM<br>
+        Fri: 10:00 AM – 12:30 PM, 2:00 – 4:30 PM<br>
+        Sat: 10:00 AM – 1:00 PM</p>
+      </div>
+    </div>
+
+    <div class="cards two">
+      <div class="card">
+        <h3 class="card-head">🧑‍💼 Who to contact</h3>
+        <div class="table-scroll">
+        <table class="table">
+          <thead><tr><th>Query</th><th>Contact</th></tr></thead>
+          <tbody>
+            <tr><td>Mentoring / mentor allotment</td><td>Your allotted mentor → <a href="{{ url_for('mentors') }}">Mentor Directory</a></td></tr>
+            <tr><td>Admission rounds &amp; allotment</td><td>Counselling helpdesk (e-mail above)</td></tr>
+            <tr><td>Appointments</td><td><a href="{{ url_for('appointment') }}">Book online</a> or helpdesk</td></tr>
+            <tr><td>Complaints</td><td><a href="{{ url_for('grievance') }}">Grievance form</a> (response in 3 working days)</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="card map-card">
+        <h3 class="card-head">🗺️ Location</h3>
+        <svg class="map-placeholder" viewBox="0 0 400 220" role="img" aria-label="Illustrative map of the Faculty of Science campus">
+          <rect width="400" height="220" fill="#e8efe9"/>
+          <path d="M0 70 Q120 50 200 78 T400 60 V0 H0 Z" fill="#d3e3d7"/>
+          <path d="M0 170 Q140 145 260 168 T400 155 V220 H0 Z" fill="#d3e3d7"/>
+          <path d="M30 220 L120 110 L180 110" stroke="#b6c9bd" stroke-width="10" fill="none" stroke-linecap="round"/>
+          <path d="M180 110 L320 130 L400 100" stroke="#b6c9bd" stroke-width="10" fill="none" stroke-linecap="round"/>
+          <rect x="150" y="80" width="70" height="44" rx="4" fill="#0b5d3b"/>
+          <text x="185" y="106" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">FoS</text>
+          <circle cx="185" cy="66" r="9" fill="#c9a227"/>
+          <text x="185" y="70" text-anchor="middle" fill="#0b5d3b" font-size="10" font-weight="800">★</text>
+          <text x="185" y="150" text-anchor="middle" fill="#2c4a3a" font-size="11">Faculty of Science — Counselling Cell</text>
+          <text x="185" y="166" text-anchor="middle" fill="#5d7367" font-size="9">Illustrative map — not to scale</text>
+        </svg>
+        <p class="fineprint">The Counselling Cell is located in the Dean's office complex, Faculty of Science. Ask at the main gate for directions.</p>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="{{ url_for('grievance') }}">Submit a Grievance</a>
+      <a class="btn btn-ghost" href="{{ url_for('faq') }}">Read FAQ →</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

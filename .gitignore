@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.env
+.venv/
+venv/
+counselling.db
+counselling.db.bak-*
+*.bak
+data/
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+{% block body_class %}oec-dark{% endblock %}
+{% block title %}Main Entry Sheet{% endblock %}
+{% block content %}
+
+{% include "_oec_header.html" %}
+
+<div class="container oec-body">
+
+  <div class="oec-sheet-head">
+    <h1>▦ Main Entry Sheet</h1>
+    <p>Master data entry • Automatic course separation enabled</p>
+  </div>
+
+  {# ================= toolbar ================= #}
+  <div class="oec-toolbar">
+    <div class="oec-toolbar-row">
+      <button class="obtn obtn-blue" data-new-record>＋ New Record</button>
+      <button class="obtn obtn-blue" data-new-record>👤 New Student</button>
+      <a class="obtn obtn-blue" href="{{ url_for('oec_import') }}">📄 Import Excel</a>
+      <a class="obtn obtn-blue" href="{{ url_for('oec_import') }}">📊 Import CSV</a>
+      <a class="obtn" href="{{ url_for('oec_sample') }}">⬇ Sample</a>
+      <button class="obtn obtn-green" form="addForm" type="submit">💾 Save</button>
+      <button class="obtn obtn-green" id="autoSaveBtn" aria-pressed="true">⟳ Auto Save</button>
+      <span class="oec-flex-spacer"></span>
+      <button class="obtn" id="undoBtn" title="Undo last change" disabled>↶</button>
+      <button class="obtn" id="redoBtn" title="Redo" disabled>↷</button>
+      <button class="obtn obtn-red" id="bulkDeleteBtn">🗑 Delete</button>
+      <button class="obtn" onclick="location.reload()">⟳ Refresh</button>
+    </div>
+    <div class="oec-toolbar-row">
+      <input type="search" id="rowSearch" class="oec-search" placeholder="🔍 Search name, enroll, roll, mobile…">
+      <span class="oec-flex-spacer"></span>
+      <a class="obtn obtn-blue" href="{{ url_for('oec_export') }}">📄 Excel</a>
+      <a class="obtn obtn-red" href="{{ url_for('oec_export_pdf') }}">📕 PDF</a>
+      <a class="obtn" href="{{ url_for('oec_print') }}" target="_blank">🖨 Print</a>
+      <a class="obtn obtn-blue" href="{{ url_for('oec_export_zip') }}">🗜 ZIP</a>
+      <a class="obtn" href="{{ url_for('oec_split') }}">🗂 Split Sheets</a>
+      <a class="obtn" href="{{ url_for('oec_backup') }}">⇩ Backup</a>
+      <a class="obtn" href="{{ url_for('oec_import') }}#restore">⇧ Restore</a>
+    </div>
+  </div>
+
+  {# ================= entry form ================= #}
+  <form class="oec-form-card" id="addForm" method="post" action="{{ url_for('oec_add') }}" novalidate>
+    <div class="oec-form-grid">
+      <div class="ofield">
+        <label>Enrollment No.</label>
+        <input type="text" name="enrolment_no" id="f_enrol" value="{{ form.get('enrolment_no','') }}" placeholder="2026BOT001">
+      </div>
+      <div class="ofield">
+        <label>Student Name *</label>
+        <input type="text" name="student_name" id="f_name" value="{{ form.get('student_name','') }}" placeholder="Student name" required>
+      </div>
+      <div class="ofield">
+        <label>Faculty No.</label>
+        <input type="text" name="faculty_no" id="f_fac" value="{{ form.get('faculty_no','') }}" placeholder="BSC2026/45">
+      </div>
+      <div class="ofield">
+        <label>Mobile</label>
+        <input type="tel" name="mobile" id="f_mobile" value="{{ form.get('mobile','') }}" placeholder="98XXXXXXXX">
+      </div>
+      <div class="ofield">
+        <label>Course Type</label>
+        <select name="course_type" id="f_ctype">
+          {% for key, typ, sem, label in OEC_SLOTS %}
+          <option value="{{ label }}" {% if form.get('course_type') == label %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="ofield">
+        <label>Course Code</label>
+        <select name="course_code" id="f_code">
+          <option value="">-- Select Course Code --</option>
+          {% for key, typ, sem, label in OEC_SLOTS %}
+            {% for c in courses_by_slot[key] %}
+            <option value="{{ c.course_code }}" data-slot="{{ key }}" data-title="{{ c.title }}"
+                    {% if form.get('course_code') == c.course_code %}selected{% endif %}>{{ c.course_code }}</option>
+            {% endfor %}
+          {% endfor %}
+        </select>
+      </div>
+      <div class="ofield">
+        <label>Course Name</label>
+        <select name="course_name_pick" id="f_cname">
+          <option value="">-- Select Course Name --</option>
+          {% for key, typ, sem, label in OEC_SLOTS %}
+            {% for c in courses_by_slot[key] %}
+            <option value="{{ c.course_code }}" data-slot="{{ key }}" data-code="{{ c.course_code }}"
+                    {% if form.get('course_code') == c.course_code %}selected{% endif %}>{{ c.title }}</option>
+            {% endfor %}
+          {% endfor %}
+        </select>
+      </div>
+      <div class="ofield">
+        <label>Semester</label>
+        <select name="semester" id="f_sem">
+          <option value="">--</option>
+          {% for s in OEC_SEMS %}
+          <option value="{{ s }}" {% if form.get('semester') == s %}selected{% endif %}>{{ s }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="ofield">
+        <label>Status</label>
+        <select name="status" id="f_status">
+          {% for st in OEC_STATUSES %}
+          <option value="{{ st }}" {% if form.get('status', 'Pending') == st %}selected{% endif %}>{{ st }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="ofield">
+        <label>Remarks</label>
+        <input type="text" name="remarks" id="f_remarks" value="{{ form.get('remarks','') }}" placeholder="Optional">
+      </div>
+    </div>
+    <div class="oec-form-actions">
+      <button type="submit" class="obtn obtn-blue obtn-lg">＋ Add Student</button>
+      <button type="button" class="obtn" data-new-record>Clear</button>
+    </div>
+  </form>
+
+  {# ================= master table ================= #}
+  <div class="oec-table-card">
+    <div class="table-scroll">
+      <table class="otable" id="mainTable">
+        <thead>
+          <tr>
+            <th class="ocheck"><input type="checkbox" id="checkAll" title="Select all"></th>
+            <th>ENROLLMENT NO</th>
+            <th>STUDENT NAME</th>
+            <th>VAC V (COURSE CODE ▼)</th>
+            <th>VOC V (COURSE CODE ▼)</th>
+            <th>VAC VI (COURSE CODE ▼)</th>
+            <th>VOC VI (COURSE CODE ▼)</th>
+            <th>COUNSELLING DATE</th>
+            <th>STATUS</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in students %}
+          <tr data-id="{{ s.id }}"
+              data-search="{{ (s.enrolment_no ~ ' ' ~ s.student_name ~ ' ' ~ s.faculty_no ~ ' ' ~ s.mobile ~ ' ' ~ s.vac_v_code ~ ' ' ~ s.voc_v_code ~ ' ' ~ s.vac_vi_code ~ ' ' ~ s.voc_vi_code)|lower }}">
+            <td class="ocheck"><input type="checkbox" class="row-check" value="{{ s.id }}"></td>
+            <td><span class="oec-mono">{{ s.enrolment_no or '—' }}</span></td>
+            <td>
+              <strong>{{ s.student_name }}</strong>
+              <div class="oec-submeta">{{ s.faculty_no or '' }}{% if s.faculty_no and s.mobile %} · {% endif %}{{ s.mobile or '' }}</div>
+            </td>
+            {% for key, typ, sem, label in OEC_SLOTS %}
+            <td>
+              <input type="text" class="oec-cell-input" list="dl-{{ key }}"
+                     data-slot="{{ key }}" data-id="{{ s.id }}"
+                     value="{{ (s[key ~ '_code'] ~ (' — ' ~ s[key ~ '_title'] if s[key ~ '_title'] else '')) if s[key ~ '_code'] else '' }}"
+                     placeholder="Search CODE or Name…" autocomplete="off">
+            </td>
+            {% endfor %}
+            <td>
+              <input type="date" class="oec-cell-input oec-date" data-id="{{ s.id }}"
+                     value="{{ s.counselling_date or '' }}">
+            </td>
+            <td>
+              <select class="oec-cell-select" data-status data-id="{{ s.id }}">
+                {% for st in OEC_STATUSES %}
+                <option value="{{ st }}" {% if s.status == st %}selected{% endif %}>{{ st }}</option>
+                {% endfor %}
+              </select>
+            </td>
+            <td class="oactions">
+              <a class="oico oico-green" title="Download slip (PDF)" href="{{ url_for('oec_student_pdf', sid=s.id) }}">⬇</a>
+              <a class="oico" title="Print slip" target="_blank" href="{{ url_for('oec_student_print', sid=s.id) }}">🖨</a>
+              <a class="oico oico-blue" title="View / edit" href="#" data-edit-toggle="edit-{{ s.id }}">✎</a>
+              <button class="oico oico-red" title="Delete" data-row-delete="{{ s.id }}">🗑</button>
+            </td>
+          </tr>
+          <tr id="edit-{{ s.id }}" class="hidden oec-editrow">
+            <td colspan="10">
+              <div class="oec-editgrid">
+                <label>Enrollment No
+                  <input type="text" data-field="enrolment_no" data-id="{{ s.id }}" value="{{ s.enrolment_no or '' }}">
+                </label>
+                <label>Student Name
+                  <input type="text" data-field="student_name" data-id="{{ s.id }}" value="{{ s.student_name }}">
+                </label>
+                <label>Faculty No.
+                  <input type="text" data-field="faculty_no" data-id="{{ s.id }}" value="{{ s.faculty_no or '' }}">
+                </label>
+                <label>Mobile
+                  <input type="text" data-field="mobile" data-id="{{ s.id }}" value="{{ s.mobile or '' }}">
+                </label>
+                <label>Semester
+                  <select data-field="semester" data-id="{{ s.id }}">
+                    <option value="">--</option>
+                    {% for sm in OEC_SEMS %}<option value="{{ sm }}" {% if s.semester == sm %}selected{% endif %}>{{ sm }}</option>{% endfor %}
+                  </select>
+                </label>
+                <label>Remarks
+                  <input type="text" data-field="remarks" data-id="{{ s.id }}" value="{{ s.remarks or '' }}">
+                </label>
+                <button type="button" class="obtn" data-edit-toggle="edit-{{ s.id }}">Close</button>
+              </div>
+              <p class="fineprint">Changes save automatically when you leave a field.</p>
+            </td>
+          </tr>
+          {% else %}
+          <tr><td colspan="10" class="empty">No records yet — add a student above or import a file.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {# datalists for the per-slot searchable cells #}
+  {% for key, typ, sem, label in OEC_SLOTS %}
+  <datalist id="dl-{{ key }}">
+    {% for c in courses_by_slot[key] %}
+    <option value="{{ c.course_code }} — {{ c.title }}"></option>
+    {% endfor %}
+  </datalist>
+  {% endfor %}
+
+  <p class="fineprint">Pick a course in any cell (“CODE — Name”), or type to search — the record auto-saves and the matching course sheet updates instantly. Wrong-column codes are rejected. Use <strong>Split Sheets</strong> for the course-wise workbook, or <strong>ZIP</strong> for one file per sheet.</p>
+
+</div>
+
+{% endblock %}

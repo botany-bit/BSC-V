@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Counselling Schedule{% endblock %}
+{% block content %}
+
+<section class="page-head">
+  <div class="container">
+    <p class="breadcrumb"><a href="{{ url_for('home') }}">Home</a> / Schedule</p>
+    <h1>Counselling Schedule — Session {{ SESSION }}</h1>
+    <p class="page-lead">Weekly mentoring slots, Counselling Cell timings and the semester counselling calendar for B.Sc. V Semester.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <h2 class="section-title">Weekly mentoring slots</h2>
+    <div class="card table-scroll">
+      <table class="table">
+        <thead>
+          <tr><th>Mentor</th><th>Department</th><th>Day</th><th>Time</th><th>Venue</th><th></th></tr>
+        </thead>
+        <tbody>
+          {% for m in mentors %}
+          <tr>
+            <td><strong>{{ m.name }}</strong></td>
+            <td>{{ m.department }}</td>
+            <td>{{ m.day }}</td>
+            <td>{{ m.slot }}</td>
+            <td>{{ m.room }}</td>
+            <td><a class="btn btn-ghost btn-sm" href="{{ url_for('appointment', mentor=m.id) }}">Book</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cards two">
+      <div class="card">
+        <h3 class="card-head">🕑 Counselling Cell timings</h3>
+        <div class="table-scroll">
+        <table class="table">
+          <thead><tr><th>Day</th><th>Timing</th></tr></thead>
+          <tbody>
+            <tr><td>Monday – Thursday</td><td>10:00 AM – 4:30 PM</td></tr>
+            <tr><td>Friday</td><td>10:00 AM – 12:30 PM &amp; 2:00 PM – 4:30 PM</td></tr>
+            <tr><td>Saturday</td><td>10:00 AM – 1:00 PM (by prior appointment)</td></tr>
+            <tr><td>Sunday / holidays</td><td>Closed</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="fineprint">Standard appointment slots: {% for s in TIME_SLOTS %}{{ s }}{{ ", " if not loop.last }}{% endfor %}</p>
+      </div>
+
+      <div class="card">
+        <h3 class="card-head">🗓️ Semester counselling calendar</h3>
+        <div class="table-scroll">
+        <table class="table">
+          <thead><tr><th>Activity</th><th>Date(s)</th></tr></thead>
+          <tbody>
+            <tr><td>Mentor–mentee registration window</td><td>17 – 25 Aug 2026</td></tr>
+            <tr><td>Mentor allotment display</td><td>24 Aug 2026</td></tr>
+            <tr><td>First mentor–mentee meeting</td><td>By 31 Aug 2026</td></tr>
+            <tr><td>Mid-semester mentoring review</td><td>28 Sep – 03 Oct 2026</td></tr>
+            <tr><td>Pre-exam counselling / doubt clinics</td><td>02 – 13 Nov 2026</td></tr>
+            <tr><td>End-semester mentoring feedback</td><td>16 – 21 Nov 2026</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="{{ url_for('appointment') }}">Book an Appointment</a>
+      <a class="btn btn-ghost" href="{{ url_for('mentors') }}">Mentor Directory →</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

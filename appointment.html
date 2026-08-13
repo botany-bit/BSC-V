@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Book Mentor Appointment{% endblock %}
+{% block content %}
+
+<section class="page-head">
+  <div class="container">
+    <p class="breadcrumb"><a href="{{ url_for('home') }}">Home</a> / Appointment</p>
+    <h1>Book a Mentor Appointment</h1>
+    <p class="page-lead">Reserve a 30-minute one-to-one slot with a faculty mentor. Slots are allotted on a first-come, first-served basis.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container form-page">
+    <form class="card form-card" method="post" action="{{ url_for('appointment') }}" novalidate>
+      {% set pre_mentor = request.args.get('mentor', '') %}
+
+      <fieldset>
+        <legend>Your details</legend>
+        <div class="form-grid">
+          <div class="field">
+            <label for="name">Full name *</label>
+            <input type="text" id="name" name="name" value="{{ form.get('name','') }}" required>
+          </div>
+          <div class="field">
+            <label for="roll_no">Roll / Enrolment number *</label>
+            <input type="text" id="roll_no" name="roll_no" value="{{ form.get('roll_no','') }}" required>
+          </div>
+          <div class="field">
+            <label for="email">E-mail *</label>
+            <input type="email" id="email" name="email" value="{{ form.get('email','') }}" required>
+          </div>
+          <div class="field">
+            <label for="phone">Mobile number</label>
+            <input type="tel" id="phone" name="phone" value="{{ form.get('phone','') }}">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Appointment details</legend>
+        <div class="form-grid">
+          <div class="field span-2">
+            <label for="mentor_id">Select mentor *</label>
+            <select id="mentor_id" name="mentor_id" required>
+              <option value="">— Choose a mentor —</option>
+              {% for m in mentors %}
+              <option value="{{ m.id }}" {% if (form.get('mentor_id') or pre_mentor)|string == m.id|string %}selected{% endif %}>
+                {{ m.name }} — {{ m.department }} ({{ m.day }}, {{ m.slot }})
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="field">
+            <label for="date">Preferred date *</label>
+            <input type="date" id="date" name="date" value="{{ form.get('date','') }}" min="{{ today }}" required>
+          </div>
+          <div class="field">
+            <label for="slot">Time slot *</label>
+            <select id="slot" name="slot" required>
+              <option value="">— Choose a slot —</option>
+              {% for s in TIME_SLOTS %}
+              <option value="{{ s }}" {% if form.get('slot') == s %}selected{% endif %}>{{ s }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="field span-2">
+            <label for="topic">Purpose of the meeting</label>
+            <textarea id="topic" name="topic" rows="3" placeholder="e.g. backlog planning, M.Sc. guidance, exam preparation, personal concern…">{{ form.get('topic','') }}</textarea>
+          </div>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn btn-gold btn-lg">Request Appointment</button>
+      <p class="fineprint">You will receive an appointment ID (A…). Please carry your University ID card and report 10 minutes early. If a slot is already booked, you will be asked to pick another time immediately.</p>
+    </form>
+  </div>
+</section>
+
+{% endblock %}

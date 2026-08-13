@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Print — Main Entry Sheet{% endblock %}
+{% block content %}
+
+<section class="section">
+  <div class="container wide">
+
+    <div class="card no-print print-toolbar">
+      <strong>Print preview</strong> — A4 landscape recommended.
+      <div class="cta-row" style="margin-top:10px">
+        <button class="btn btn-gold" onclick="window.print()">🖨 Print</button>
+        <a class="btn btn-ghost" href="{{ url_for('oec_main') }}">← Back to Main Entry Sheet</a>
+        <a class="btn btn-ghost" href="{{ url_for('oec_export_pdf') }}">📕 Download PDF instead</a>
+      </div>
+    </div>
+
+    <div class="print-sheet">
+      <div class="ps-head">
+        <h2>ALIGARH MUSLIM UNIVERSITY, ALIGARH</h2>
+        <p class="ps-sub">{{ DEPT }} · B.Sc. Student Portal</p>
+        <p class="ps-title">{% if focus %}{{ focus_label }} Sheet — paper-code wise{% else %}Main Entry Sheet — Open Elective, Semester V &amp; VI{% endif %} · Session {{ SESSION }}</p>
+        <p class="ps-meta">{{ filterline }} · Total records: <strong>{{ students|length }}</strong> · Generated on {{ today }}</p>
+      </div>
+
+      <table class="print-table">
+        <thead>
+          <tr>
+            <th>S.No</th><th>Enrollment No</th><th>Student Name</th><th>Faculty No.</th><th>Mobile</th>
+            {% if focus %}
+            <th>{{ focus_label }} (Course Code)</th>
+            {% else %}
+            {% for key, t, sm, lbl in OEC_SLOTS %}<th>{{ lbl }} (Course Code)</th>{% endfor %}
+            {% endif %}
+            <th>Counselling Date</th><th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in students %}
+          <tr>
+            <td class="c">{{ loop.index }}</td>
+            <td>{{ s.enrolment_no }}</td>
+            <td>{{ s.student_name }}</td>
+            <td>{{ s.faculty_no }}</td>
+            <td>{{ s.mobile }}</td>
+            {% if focus %}
+            <td>{{ s[focus ~ '_code'] }}{% if s[focus ~ '_title'] %} — {{ s[focus ~ '_title'] }}{% endif %}</td>
+            {% else %}
+            {% for key, t, sm, lbl in OEC_SLOTS %}
+            <td>{{ s[key ~ '_code'] }}{% if s[key ~ '_title'] %} — {{ s[key ~ '_title'] }}{% endif %}</td>
+            {% endfor %}
+            {% endif %}
+            <td class="c">{% if s.counselling_date %}{{ s.counselling_date[8:10] }}-{{ s.counselling_date[5:7] }}-{{ s.counselling_date[0:4] }}{% endif %}</td>
+            <td>{{ s.status }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="{{ 8 if focus else 7 + OEC_SLOTS|length }}" class="c empty">No records to print.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="ps-sign">
+        <div class="sig"><span class="sig-line"></span>Checked by (Dealing Assistant)</div>
+        <div class="sig"><span class="sig-line"></span>Convener, Counselling Cell</div>
+        <div class="sig"><span class="sig-line"></span>Chairman, {{ DEPT }}</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.container.wide { max-width: 1280px; }
+.print-toolbar { margin-bottom: 18px; }
+.print-sheet { background: #fff; border: 1px solid var(--line); padding: 26px 30px; }
+.ps-head { text-align: center; margin-bottom: 14px; }
+.ps-head h2 { margin: 0; color: var(--green); font-size: 1.25rem; letter-spacing: .5px; }
+.ps-sub { margin: 2px 0; color: var(--muted); font-size: .85rem; }
+.ps-title { margin: 6px 0 2px; font-weight: 700; font-size: .95rem; }
+.ps-meta { margin: 0; color: var(--muted); font-size: .8rem; }
+.print-table { width: 100%; border-collapse: collapse; font-size: .78rem; margin-top: 10px; }
+.print-table th { background: #0b5d3b; color: #fff; padding: 6px 7px; border: 1px solid #0a4e32; font-size: .7rem; text-transform: uppercase; }
+.print-table td { border: 1px solid #b9cfc2; padding: 5px 7px; }
+.print-table tr:nth-child(even) td { background: #f3f8f5; }
+.print-table .c { text-align: center; }
+.ps-sign { display: flex; justify-content: space-between; gap: 24px; margin-top: 56px; }
+.sig { flex: 1; text-align: center; font-size: .82rem; font-weight: 600; color: #33453c; }
+.sig-line { display: block; border-top: 1.5px solid #33453c; margin-bottom: 6px; }
+@media print {
+  .site-header, .site-footer, .no-print, .flash-wrap { display: none !important; }
+  body { background: #fff; }
+  .section { padding: 0; } .container.wide { max-width: none; padding: 0; }
+  .print-sheet { border: 0; padding: 0; }
+  .print-table { font-size: 10px; }
+  .print-table th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @page { size: A4 landscape; margin: 12mm; }
+}
+</style>
+
+{% endblock %}

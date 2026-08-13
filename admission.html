@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Admission Counselling{% endblock %}
+{% block content %}
+
+<section class="page-head">
+  <div class="container">
+    <p class="breadcrumb"><a href="{{ url_for('home') }}">Home</a> / Admission Counselling</p>
+    <h1>Admission Counselling — B.Sc. (Hons.) {{ SESSION }}</h1>
+    <p class="page-lead">Round-wise counselling for candidates shortlisted for admission to B.Sc. programmes: registration, choice filling, seat allotment, document verification and reporting.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <h2 class="section-title">Counselling process — 6 steps</h2>
+    <div class="steps-grid">
+      <div class="step-card"><span class="step-no">1</span><h3>Online registration</h3><p>Register on this portal within the notified window using your application details. <a href="{{ url_for('register', type='admission') }}">Register →</a></p></div>
+      <div class="step-card"><span class="step-no">2</span><h3>Choice filling &amp; locking</h3><p>Fill subject-combination preferences in order of priority and lock them before the deadline.</p></div>
+      <div class="step-card"><span class="step-no">3</span><h3>Seat allotment</h3><p>Round-wise provisional allotment is published on the portal and the notice board.</p></div>
+      <div class="step-card"><span class="step-no">4</span><h3>Document verification</h3><p>Report in person with original documents and one set of self-attested photocopies.</p></div>
+      <div class="step-card"><span class="step-no">5</span><h3>Fee payment &amp; confirmation</h3><p>Pay the admission fee within the due date to confirm the allotted seat.</p></div>
+      <div class="step-card"><span class="step-no">6</span><h3>Upgradation rounds</h3><p>Willing candidates are considered for higher preferences in subsequent rounds.</p></div>
+    </div>
+
+    <h2 class="section-title">Indicative seat matrix (B.Sc. V Sem intake reference)</h2>
+    <p class="section-sub">Indicative subject-combination intake for reference — final numbers are as per the University admission brochure.</p>
+    <div class="card table-scroll">
+      <table class="table">
+        <thead><tr><th>#</th><th>Subject combination</th><th>Stream</th><th>Indicative seats</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Physics, Chemistry, Mathematics (PCM)</td><td>Physical Sciences</td><td>120</td></tr>
+          <tr><td>2</td><td>Physics, Mathematics, Computer Science</td><td>Physical Sciences</td><td>60</td></tr>
+          <tr><td>3</td><td>Chemistry, Botany, Zoology (CBZ)</td><td>Life Sciences</td><td>120</td></tr>
+          <tr><td>4</td><td>Chemistry, Botany, Geology</td><td>Earth Sciences</td><td>40</td></tr>
+          <tr><td>5</td><td>Mathematics, Statistics, Computer Science</td><td>Mathematical Sciences</td><td>60</td></tr>
+          <tr><td>6</td><td>Botany, Zoology, Chemistry</td><td>Life Sciences</td><td>60</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cards two">
+      <div class="card">
+        <h3 class="card-head">🗓️ Round-1 schedule ({{ SESSION }})</h3>
+        <div class="table-scroll">
+        <table class="table">
+          <thead><tr><th>Activity</th><th>Date(s)</th></tr></thead>
+          <tbody>
+            <tr><td>Counselling registration (online)</td><td>17 – 25 Aug 2026</td></tr>
+            <tr><td>Choice filling &amp; locking</td><td>18 – 26 Aug 2026</td></tr>
+            <tr><td>Provisional allotment — Round 1</td><td>28 Aug 2026</td></tr>
+            <tr><td>Reporting &amp; document verification</td><td>29 Aug – 02 Sep 2026</td></tr>
+            <tr><td>Round-2 (upgradation) allotment</td><td>05 Sep 2026</td></tr>
+            <tr><td>Commencement of classes</td><td>14 Sep 2026</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-head">📄 Documents required at verification</h3>
+        <ul class="tick-list">
+          <li>Provisional allotment letter / counselling reference ID</li>
+          <li>Class X certificate (date of birth proof)</li>
+          <li>Class XII marksheet &amp; passing certificate</li>
+          <li>Transfer / migration certificate (original)</li>
+          <li>Character certificate from last institution</li>
+          <li>Caste / category certificate (SC/ST/OBC-NCL/EWS), if applicable</li>
+          <li>PwD certificate, if applicable</li>
+          <li>Four recent passport-size photographs</li>
+          <li>Aadhaar card / valid photo ID</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert-box">
+      <strong>⚠️ Please note:</strong> Allotment is provisional and subject to verification of eligibility and documents.
+      Candidates who fail to report within the notified dates forfeit the allotted seat, which is then offered in the next round.
+      No separate initiation fee is charged for counselling registration.
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="{{ url_for('register', type='admission') }}">Register for Admission Counselling</a>
+      <a class="btn btn-ghost" href="{{ url_for('notices') }}">Allotment Notices</a>
+      <a class="btn btn-ghost" href="{{ url_for('faq') }}">Read FAQ</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

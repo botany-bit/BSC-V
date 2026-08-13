@@ -1,0 +1,28 @@
+{# Shared dark header + tab bar for the counselling data-entry module #}
+<div class="oec-brandbar">
+  <div class="container oec-brandbar-inner">
+    <div class="oec-brand">
+      <span class="oec-logo">▦</span>
+      <div>
+        <div class="oec-brand-title">{{ BRAND }}</div>
+        <div class="oec-brand-sub">{{ BRAND_SUB }}</div>
+      </div>
+    </div>
+    <div class="oec-brand-right">
+      <span class="oec-dept-pill">{{ DEPT }}</span>
+      <a class="oec-dept-pill oec-home" href="{{ url_for('admin') }}" title="Back to Admin Dashboard">⌂ Admin</a>
+    </div>
+  </div>
+</div>
+
+<div class="oec-tabs-wrap">
+  <div class="container oec-tabs">
+    <a class="oec-tab {{ 'active' if oec_tab == 'main' }}" href="{{ url_for('oec_main') }}">▦&nbsp; Main Entry Sheet</a>
+    {% for key, typ, sem, label in OEC_SLOTS %}
+    <a class="oec-tab {{ 'active' if oec_tab == key }}" href="{{ url_for('oec_sheet', slot=key) }}">
+      <span class="oec-tab-badge badge-{{ key }}">{{ label }}</span>&nbsp; Sheet
+    </a>
+    {% endfor %}
+    <a class="oec-tab {{ 'active' if oec_tab == 'courses' }}" href="{{ url_for('oec_courses') }}">🗂&nbsp; Course Code Sheets</a>
+  </div>
+</div>

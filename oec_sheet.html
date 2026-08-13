@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block body_class %}oec-dark{% endblock %}
+{% block title %}{{ label }} — Per-Course Code Sheets{% endblock %}
+{% block content %}
+
+{% include "_oec_header.html" %}
+
+<div class="container oec-body">
+  <div class="oec-sheet-head">
+    <h1><span class="oec-tab-badge badge-{{ slot }}">{{ dash_label }}</span> &nbsp;Per-Course Code Sheets</h1>
+    <p>Auto-fetched from the Main Entry Sheet, split paper-code wise • {{ total_codes }} course code(s) • click ⬇ to export any single code</p>
+  </div>
+
+  <div class="oec-toolbar">
+    <div class="oec-toolbar-row oec-chips oec-chip-jump">
+      <input type="search" id="codeJump" class="oec-search" style="min-width:220px" placeholder="⚡ Jump to code… (type &amp; hit Enter)">
+      {% for code, n in counts.items() %}
+      <a class="obtn {{ 'obtn-blue' if course == code }}" href="#code-{{ code }}" data-count="{{ n }}">{{ code }} <span class="oec-chip-count">{{ n }}</span></a>
+      {% endfor %}
+    </div>
+    <div class="oec-toolbar-row">
+      <strong style="color:var(--dmuted)">Whole {{ label }} sheet:</strong>
+      <span class="oec-flex-spacer"></span>
+      <a class="obtn obtn-blue" href="{{ url_for('oec_export', slot=slot, course=course) }}">📄 Excel</a>
+      <a class="obtn obtn-red" href="{{ url_for('oec_export_pdf', slot=slot, course=course) }}">📕 PDF</a>
+      <a class="obtn" href="{{ url_for('oec_print', slot=slot, course=course) }}" target="_blank">🖨 Print</a>
+      <a class="obtn" href="{{ url_for('oec_split', slot=slot, course=course) }}">🗂 Split Sheets</a>
+    </div>
+  </div>
+
+  {# ------- one auto-sheet card per paper code (empty codes included) ------- #}
+  {% for code, students in groups %}
+  <div class="oec-table-card oec-course-card" id="code-{{ code }}">
+    <div class="oec-course-head">
+      <span class="oec-pcl">
+        <span class="oec-tab-badge badge-{{ slot }}">{{ dash_label }}</span>
+        <strong class="oec-big-code">{{ code }}</strong>
+        {% if students and students[0][slot ~ '_title'] %}<span class="oec-course-title">{{ students[0][slot ~ '_title'] }}</span>{% endif %}
+      </span>
+      <span class="oec-course-count{% if students %} has{% endif %}">{{ students|length }}</span>
+      <span class="oec-course-actions">
+        <a class="obtn obtn-green obtn-xs" href="{{ url_for('oec_main', ctype=label, code=code) }}#addForm" title="Add a student straight into {{ code }}">＋ Add</a>
+        <a class="obtn obtn-blue obtn-xs" href="{{ url_for('oec_course_xlsx', slot=slot, code=code) }}" title="Download Excel — {{ code }} only">⬇ Excel</a>
+        <a class="obtn obtn-red obtn-xs" href="{{ url_for('oec_export_pdf', slot=slot, course=code) }}" title="Download PDF — {{ code }} only">⬇ PDF</a>
+        <a class="obtn obtn-xs" href="{{ url_for('oec_print', slot=slot, course=code) }}" target="_blank" title="Print — {{ code }} only">🖨 Print</a>
+      </span>
+    </div>
+    <div class="table-scroll">
+      <table class="otable otable-sheet">
+        <thead>
+          <tr><th>S.No</th><th>Enroll</th><th>Name</th><th>Faculty</th><th>Course Code</th><th>Sem</th><th>Date</th><th>Status</th><th>QR</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          {% for s in students %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td><span class="oec-mono">{{ s.enrolment_no or '—' }}</span></td>
+            <td><strong>{{ s.student_name }}</strong></td>
+            <td>{{ s.faculty_no or '—' }}</td>
+            <td><span class="oec-mono">{{ code }}</span></td>
+            <td>{{ s.semester or '—' }}</td>
+            <td>{% if s.counselling_date %}{{ s.counselling_date[8:10] }}-{{ s.counselling_date[5:7] }}-{{ s.counselling_date[0:4] }}{% else %}—{% endif %}</td>
+            <td>{{ s.status }}</td>
+            <td>{% if HAS_QR %}<a class="oico" href="{{ url_for('oec_student_qr', sid=s.id) }}" target="_blank" title="Verification QR — E{{ s.id }}">▦</a>{% else %}<span class="oec-mono" title="QR lib not installed">—</span>{% endif %}</td>
+            <td class="oactions">
+              <a class="oico oico-green" href="{{ url_for('oec_student_pdf', sid=s.id) }}" title="Download slip PDF">⬇</a>
+              <a class="oico" target="_blank" href="{{ url_for('oec_student_print', sid=s.id) }}" title="Print slip">🖨</a>
+            </td>
+          </tr>
+          {% else %}
+          <tr><td colspan="10" class="empty">No students in {{ code }} yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<style>
+.oec-course-card { padding: 14px 16px; }
+.oec-course-head {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  padding: 2px 2px 12px;
+}
+.oec-pcl { display: flex; align-items: center; gap: 10px; min-width: 0; flex-wrap: wrap; }
+.oec-big-code { font-size: 1.02rem; font-weight: 800; color: #f1f5f9; letter-spacing: .4px; }
+.oec-course-title { color: var(--dmuted); font-size: .82rem; }
+.oec-course-count {
+  font-size: 1.15rem; font-weight: 800; color: var(--dmuted);
+  background: #0d1526; border: 1px solid var(--dinline);
+  border-radius: 8px; min-width: 44px; text-align: center; padding: 2px 10px;
+}
+.oec-course-count.has { color: #7ee2a8; border-color: rgba(34, 163, 74, .5); }
+.oec-course-actions { margin-left: auto; display: flex; gap: 6px; }
+.obtn-xs { padding: 5px 10px; font-size: .78rem; }
+.otable-sheet { min-width: 1000px; }
+.otable-sheet th { font-size: .66rem; }
+.oec-chip-jump { max-height: 120px; overflow-y: auto; }
+:target { outline: 2px solid var(--dblue-2); outline-offset: 2px; }
+</style>
+
+<script>
+(function () {
+  var jump = document.getElementById("codeJump");
+  if (jump) {
+    jump.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter") { return; }
+      e.preventDefault();
+      var q = jump.value.trim().toUpperCase();
+      if (!q) { return; }
+      // exact match card, else first partial match chip
+      var target = document.getElementById("code-" + q);
+      if (!target) {
+        var best = null;
+        document.querySelectorAll("[id^='code-']").forEach(function (el) {
+          if (!best && el.id.toUpperCase().indexOf(q) !== -1) { best = el; }
+        });
+        target = best;
+      }
+      if (target) { target.scrollIntoView({ behavior: "smooth", block: "start" }); }
+      else {
+        var t = document.createElement("div");
+        t.className = "oec-toast err show";
+        t.textContent = "Code not found on this sheet: " + q;
+        document.body.appendChild(t);
+        setTimeout(function () { t.remove(); }, 2200);
+      }
+    });
+  }
+})();
+</script>
+
+{% endblock %}

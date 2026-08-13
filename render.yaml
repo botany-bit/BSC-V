@@ -1,0 +1,25 @@
+# Blueprint for Render.com — free tier friendly.
+# https://render.com/docs/deploy-python-gunicorn
+services:
+  - type: web
+    name: bsc-counselling-portal
+    runtime: python
+    plan: free
+    pythonVersion: "3.12"
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn wsgi:application -c gunicorn.conf.py
+    healthCheckPath: /healthz
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_PASSWORD
+        sync: false            # set in dashboard — keep it private
+      - key: FLASK_SECURE_COOKIES
+        value: "1"
+      - key: DATABASE_PATH
+        value: /opt/render/project/src/data/counselling.db  # on the disk below
+    # attach a 1GB persistent disk so SQLite survives deploys/restarts:
+    disk:
+      name: counselling-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1

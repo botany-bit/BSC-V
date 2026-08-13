@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block body_class %}oec-dark{% endblock %}
+{% block title %}Course Code Sheets{% endblock %}
+{% block content %}
+
+{% include "_oec_header.html" %}
+
+<div class="container oec-body">
+  <div class="oec-sheet-head">
+    <h1>🗂 Course Code Sheets</h1>
+    <p>Course master — Open Elective (MO / NO / XO / MJ) and VAC / VOC, Semester V &amp; VI, Session {{ SESSION }}. These feed the Main Entry Sheet dropdowns, searchable cells and the Excel format.</p>
+  </div>
+
+  <div class="oec-toolbar">
+    <div class="oec-toolbar-row">
+      <span class="oec-flex-spacer"></span>
+      <a class="obtn" href="{{ url_for('oec_main') }}">← Main Entry Sheet</a>
+      <a class="obtn obtn-blue" href="{{ url_for('oec_format') }}">⬇ Excel Format</a>
+    </div>
+  </div>
+
+  {% for sem, typ, rows in groups %}
+  <div class="oec-table-card">
+    <div class="oec-card-head">
+      <h2><span class="oec-tab-badge badge-{{ typ|lower }}_{{ sem|lower }}">{{ typ }} {{ sem }}</span> — {{ rows|length }} course(s)</h2>
+    </div>
+    <div class="table-scroll">
+      <table class="otable">
+        <thead><tr><th>#</th><th>Course Code *</th><th>Course Title (optional)</th><th>Actions</th></tr></thead>
+        <tbody>
+          {% for c in rows %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td><input type="text" name="course_code" value="{{ c.course_code }}" form="cf{{ c.id }}" class="oec-cell-input"></td>
+            <td>
+              <input type="text" name="title" value="{{ c.title }}" form="cf{{ c.id }}" class="oec-cell-input wide" placeholder="(no title needed — code only is fine)">
+              <input type="hidden" name="semester" value="{{ sem }}" form="cf{{ c.id }}">
+              <input type="hidden" name="course_type" value="{{ typ }}" form="cf{{ c.id }}">
+            </td>
+            <td class="oactions">
+              <form id="cf{{ c.id }}" method="post" action="{{ url_for('oec_course_update', course_id=c.id) }}" style="display:inline">
+                <button class="oico oico-blue" type="submit" title="Save">💾</button>
+              </form>
+              <form method="post" action="{{ url_for('oec_course_delete', course_id=c.id) }}" style="display:inline"
+                    onsubmit="return confirm('Delete course {{ c.course_code }}? Saved student records keep their text.');">
+                <button class="oico oico-red" type="submit" title="Delete">🗑</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+          <tr class="oec-addrow">
+            <td>＋</td>
+            <td><input type="text" name="course_code" form="add-{{ sem }}-{{ typ }}" class="oec-cell-input" placeholder="New code…"></td>
+            <td>
+              <form id="add-{{ sem }}-{{ typ }}" method="post" action="{{ url_for('oec_course_add') }}" style="display:contents">
+                <input type="hidden" name="semester" value="{{ sem }}">
+                <input type="hidden" name="course_type" value="{{ typ }}">
+                <input type="text" name="title" class="oec-cell-input wide" placeholder="Course title">
+              </form>
+            </td>
+            <td class="oactions">
+              <button class="oico oico-green" type="submit" form="add-{{ sem }}-{{ typ }}" title="Add">＋</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endfor %}
+
+  <p class="fineprint">💡 <strong>Live link:</strong> editing a course code/title here <strong>automatically updates every student row</strong> on the Main Entry Sheet, the per-code sheets, slips and all exports. Duplicate codes are blocked. Deleting a course never removes saved student data.
+  The official catalogue (745 codes) is auto-categorized by the type letters inside each code
+  (<code>MJ</code> / <code>MO</code> / <code>NO</code> / <code>XO</code> / <code>VO</code>→VOC / <code>VA</code>→VAC; <code>5P0x</code>/<code>6P0x</code> = practical components).</p>
+</div>
+
+{% endblock %}

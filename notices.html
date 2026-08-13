@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Notices{% endblock %}
+{% block content %}
+
+<section class="page-head">
+  <div class="container">
+    <p class="breadcrumb"><a href="{{ url_for('home') }}">Home</a> / Notices</p>
+    <h1>Notices &amp; Updates</h1>
+    <p class="page-lead">Official announcements from the Counselling Cell, Faculty of Science — Session {{ SESSION }}.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="notice-list">
+      {% for n in notices %}
+      <article class="notice-item">
+        <div class="notice-date">
+          <span class="nd-day">{{ n.published_on[8:10] }}</span>
+          <span class="nd-month">{{ n.published_on[5:7] }}/{{ n.published_on[0:4] }}</span>
+        </div>
+        <div class="notice-body">
+          <span class="tag tag-{{ n.tag|lower }}">{{ n.tag }}</span>
+          <h3>{{ n.title }}</h3>
+          <p>{{ n.body }}</p>
+        </div>
+      </article>
+      {% else %}
+      <p class="empty">No notices have been published yet. Please check again soon.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

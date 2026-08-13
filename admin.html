@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+
+<section class="page-head">
+  <div class="container admin-head">
+    <div>
+      <h1>Admin Dashboard</h1>
+      <p class="page-lead">Registrations, appointments, grievances and notices — Session {{ SESSION }}.</p>
+    </div>
+    <a class="btn btn-ghost" href="{{ url_for('admin_logout') }}">Sign out</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="stats-grid admin-stats">
+      <div class="stat"><span class="stat-num">{{ stats.registrations }}</span><span class="stat-label">Registrations (total)</span></div>
+      <div class="stat"><span class="stat-num">{{ stats.academic }}</span><span class="stat-label">Academic track</span></div>
+      <div class="stat"><span class="stat-num">{{ stats.admission }}</span><span class="stat-label">Admission track</span></div>
+      <div class="stat"><span class="stat-num">{{ stats.appointments }}</span><span class="stat-label">Appointments</span></div>
+      <div class="stat"><span class="stat-num">{{ stats.grievances }}</span><span class="stat-label">Grievances</span></div>
+      <div class="stat"><span class="stat-num">{{ stats.notices }}</span><span class="stat-label">Notices</span></div>
+    </div>
+
+    {# ------------------------------------------------ OE module quick links #}
+    <div class="card admin-block">
+      <h2 class="card-head">🧮 Counselling Data Entry — “Botany Counselling” Interface</h2>
+      <p>Main Entry Sheet (one row per student; VAC V / VOC V / VAC VI / VOC VI course cells) with automatic course separation, Excel/CSV import, Excel/PDF/ZIP export, print slips, and database backup &amp; restore.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="{{ url_for('oec_main') }}">▦ Main Entry Sheet</a>
+        <a class="btn btn-ghost" href="{{ url_for('oec_courses') }}">🗂 Course Code Sheets</a>
+        <a class="btn btn-ghost" href="{{ url_for('oec_import') }}">⬆ Import File</a>
+        <a class="btn btn-ghost" href="{{ url_for('oec_format') }}">⬇ Excel Format</a>
+        <a class="btn btn-ghost" href="{{ url_for('oec_split') }}">🗂️ Split Sheets ⬇</a>
+        <a class="btn btn-ghost" href="{{ url_for('oec_print') }}" target="_blank">🖨 Print</a>
+      </div>
+    </div>
+
+    {# ------------------------------------------------ publish notice #}
+    <div class="card admin-block" id="publish">
+      <h2 class="card-head">📢 Publish a notice</h2>
+      <form method="post" action="{{ url_for('admin_add_notice') }}" class="form-grid">
+        <div class="field span-2">
+          <label for="n_title">Title *</label>
+          <input type="text" id="n_title" name="title" required>
+        </div>
+        <div class="field">
+          <label for="n_tag">Tag</label>
+          <select id="n_tag" name="tag">
+            <option>General</option><option>Academic</option><option>Admission</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="n_date">Publish date</label>
+          <input type="date" id="n_date" name="published_on" value="{{ today }}">
+        </div>
+        <div class="field span-2">
+          <label for="n_body">Body *</label>
+          <textarea id="n_body" name="body" rows="3" required></textarea>
+        </div>
+        <div class="field span-2"><button class="btn btn-primary" type="submit">Publish notice</button></div>
+      </form>
+
+      <div class="table-scroll">
+      <table class="table table-compact">
+        <thead><tr><th>Date</th><th>Tag</th><th>Title</th><th></th></tr></thead>
+        <tbody>
+          {% for n in notices %}
+          <tr>
+            <td>{{ n.published_on }}</td>
+            <td><span class="tag tag-{{ n.tag|lower }}">{{ n.tag }}</span></td>
+            <td>{{ n.title }}</td>
+            <td>
+              <form method="post" action="{{ url_for('admin_delete_notice', notice_id=n.id) }}"
+                    onsubmit="return confirm('Delete this notice?');">
+                <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    {# ------------------------------------------------ registrations #}
+    <div class="card admin-block">
+      <div class="admin-block-head">
+        <h2 class="card-head">🗂️ Registrations (latest {{ registrations|length }})</h2>
+        <a class="btn btn-ghost btn-sm" href="{{ url_for('admin_export', table='registrations') }}">⬇ Export CSV</a>
+      </div>
+      <div class="table-scroll">
+      <table class="table table-compact">
+        <thead>
+          <tr><th>ID</th><th>Track</th><th>Name</th><th>Roll / Enrol.</th><th>E-mail</th><th>Phone</th>
+              <th>Combination / Pref-1</th><th>Submitted</th></tr>
+        </thead>
+        <tbody>
+          {% for r in registrations %}
+          <tr>
+            <td>R{{ r.id }}-{{ 'AC' if r.kind == 'academic' else 'AD' }}</td>
+            <td><span class="tag tag-{{ r.kind }}">{{ 'Academic' if r.kind == 'academic' else 'Admission' }}</span></td>
+            <td>{{ r.name }}</td>
+            <td>{{ r.roll_no or '—' }}</td>
+            <td><a href="mailto:{{ r.email }}">{{ r.email }}</a></td>
+            <td>{{ r.phone }}</td>
+            <td>{{ r.combo or r.pref1 or '—' }}</td>
+            <td>{{ r.created_at[:16].replace('T', ' ') }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="8" class="empty">No registrations yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    {# ------------------------------------------------ appointments #}
+    <div class="card admin-block">
+      <div class="admin-block-head">
+        <h2 class="card-head">📅 Appointments (latest {{ appointments|length }})</h2>
+        <a class="btn btn-ghost btn-sm" href="{{ url_for('admin_export', table='appointments') }}">⬇ Export CSV</a>
+      </div>
+      <div class="table-scroll">
+      <table class="table table-compact">
+        <thead>
+          <tr><th>ID</th><th>Student</th><th>Roll</th><th>Mentor</th><th>Date</th><th>Slot</th><th>Topic</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          {% for a in appointments %}
+          <tr>
+            <td>A{{ a.id }}</td>
+            <td>{{ a.name }}</td>
+            <td>{{ a.roll_no }}</td>
+            <td>{{ a.mentor_name }}</td>
+            <td>{{ a.date }}</td>
+            <td>{{ a.slot }}</td>
+            <td class="cell-topic">{{ a.topic or '—' }}</td>
+            <td>
+              <form method="post" action="{{ url_for('admin_appointment_status', appt_id=a.id) }}" class="status-form">
+                <select name="status" onchange="this.form.submit()">
+                  {% for s in ['Pending', 'Confirmed', 'Completed', 'Cancelled'] %}
+                  <option value="{{ s }}" {% if a.status == s %}selected{% endif %}>{{ s }}</option>
+                  {% endfor %}
+                </select>
+              </form>
+            </td>
+          </tr>
+          {% else %}
+          <tr><td colspan="8" class="empty">No appointments booked yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    {# ------------------------------------------------ grievances #}
+    <div class="card admin-block">
+      <div class="admin-block-head">
+        <h2 class="card-head">✉️ Grievances (latest {{ grievances|length }})</h2>
+        <a class="btn btn-ghost btn-sm" href="{{ url_for('admin_export', table='grievances') }}">⬇ Export CSV</a>
+      </div>
+      <div class="table-scroll">
+      <table class="table table-compact">
+        <thead>
+          <tr><th>ID</th><th>Name</th><th>Roll</th><th>Category</th><th>Subject</th><th>Message</th><th>Received</th></tr>
+        </thead>
+        <tbody>
+          {% for gv in grievances %}
+          <tr>
+            <td>G{{ gv.id }}</td>
+            <td>{{ gv.name }}<br><a href="mailto:{{ gv.email }}">{{ gv.email }}</a></td>
+            <td>{{ gv.roll_no or '—' }}</td>
+            <td>{{ gv.category or '—' }}</td>
+            <td>{{ gv.subject }}</td>
+            <td class="cell-topic">{{ gv.message }}</td>
+            <td>{{ gv.created_at[:16].replace('T', ' ') }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="7" class="empty">No grievances submitted yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

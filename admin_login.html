@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Admin Sign-in{% endblock %}
+{% block content %}
+
+<section class="page-head">
+  <div class="container">
+    <h1>Admin Sign-in</h1>
+    <p class="page-lead">Restricted area — Convener and members of the Counselling Cell only.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container form-page">
+    <form class="card form-card narrow" method="post" action="{{ url_for('admin_login') }}">
+      <div class="field">
+        <label for="password">Admin password</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" required autofocus>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+      <p class="fineprint">Default password is <code>amu@2026</code> — change it by setting the <code>ADMIN_PASSWORD</code> environment variable before starting the app.</p>
+    </form>
+  </div>
+</section>
+
+{% endblock %}

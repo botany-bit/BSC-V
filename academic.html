@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Academic Counselling{% endblock %}
+{% block content %}
+
+<section class="page-head">
+  <div class="container">
+    <p class="breadcrumb"><a href="{{ url_for('home') }}">Home</a> / Academic Counselling</p>
+    <h1>Academic Counselling — B.Sc. V Semester ({{ SESSION }})</h1>
+    <p class="page-lead">Mentor–mentee scheme, weekly counselling slots, appointments and student support for all students presently enrolled in B.Sc. V Semester.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cards two">
+      <div class="card">
+        <h3 class="card-head">🎯 Objectives of the scheme</h3>
+        <ul class="tick-list">
+          <li>Provide every V Semester student a dedicated faculty mentor for the session.</li>
+          <li>Support study planning, backlog clearance and examination preparation.</li>
+          <li>Guide students on higher studies (M.Sc., CSIR-UGC NET, GATE, JAM, CUET-PG) and careers.</li>
+          <li>Identify academic stress early and connect students with well-being support.</li>
+          <li>Maintain a confidential record of mentoring interactions.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 class="card-head">🔁 How it works — 4 steps</h3>
+        <ol class="step-list">
+          <li><strong>Register online</strong> for the mentor–mentee scheme using your Roll / Enrolment number. <a href="{{ url_for('register', type='academic') }}">Register now →</a></li>
+          <li><strong>Check your allotted mentor</strong> in the <a href="{{ url_for('mentors') }}">Mentor Directory</a> after the allotment list is displayed.</li>
+          <li><strong>Meet your mentor</strong> in the weekly slot, or <a href="{{ url_for('appointment') }}">book an appointment</a> for a one-to-one session.</li>
+          <li><strong>Follow the action plan</strong> agreed with your mentor; a mid-semester review is held in September–October.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="cards three">
+      <div class="card mini-card">
+        <h3>📚 Academic guidance</h3>
+        <p>Study plans, backlog strategy, doubt clinics, laboratory &amp; project mentoring, semester-exam preparation.</p>
+      </div>
+      <div class="card mini-card">
+        <h3>🧭 Career &amp; higher studies</h3>
+        <p>Roadmaps for M.Sc. admissions, CSIR-UGC NET, GATE, IIT-JAM, CUET-PG, internships and research exposure.</p>
+      </div>
+      <div class="card mini-card">
+        <h3>🌱 Well-being support</h3>
+        <p>Confidential listening, stress and time management, and referral to the University counselling services when needed.</p>
+      </div>
+    </div>
+
+    <div class="info-strip">
+      <h3>📌 Key facts</h3>
+      <div class="keyfacts">
+        <div><span class="kf-label">Who must register</span><span class="kf-value">Every B.Sc. V Semester student (compulsory)</span></div>
+        <div><span class="kf-label">Fee</span><span class="kf-value">Nil</span></div>
+        <div><span class="kf-label">Meeting frequency</span><span class="kf-value">At least once every fortnight</span></div>
+        <div><span class="kf-label">Venue</span><span class="kf-value">Concerned department / Counselling Cell, Faculty of Science</span></div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="{{ url_for('register', type='academic') }}">Register for Mentoring</a>
+      <a class="btn btn-ghost" href="{{ url_for('appointment') }}">Book Appointment</a>
+      <a class="btn btn-ghost" href="{{ url_for('schedule') }}">Weekly Schedule</a>
+      <a class="btn btn-ghost" href="{{ url_for('grievance') }}">Submit Grievance</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

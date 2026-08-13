@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block body_class %}oec-dark{% endblock %}
+{% block title %}Import / Restore{% endblock %}
+{% block content %}
+
+{% include "_oec_header.html" %}
+
+<div class="container oec-body">
+  <div class="oec-sheet-head">
+    <h1>📥 Import File — Excel / CSV</h1>
+    <p>Bulk-load students into the Main Entry Sheet. Course cells accept “CODE” or “CODE — Name”; wrong-column codes are rejected with a row-wise report.</p>
+  </div>
+
+  <div class="cards two">
+    <div class="oec-table-card">
+      <div class="oec-card-head"><h2>⬆ Upload file</h2></div>
+      <form method="post" action="{{ url_for('oec_import') }}" enctype="multipart/form-data" class="oec-form-inner">
+        <input type="file" name="file" accept=".xlsx,.xlsm,.csv" required>
+        <div class="oec-form-actions">
+          <button type="submit" class="obtn obtn-blue obtn-lg">Import</button>
+          <a class="obtn" href="{{ url_for('oec_format') }}">⬇ Excel Format</a>
+          <a class="obtn" href="{{ url_for('oec_sample') }}">⬇ Sample File</a>
+        </div>
+      </form>
+      <ol class="step-list oec-steps">
+        <li>Download the <strong>Excel Format</strong> (or Sample) first.</li>
+        <li>Fill rows from row 2 — headers: Enrollment No, Student Name*, Faculty No., Mobile, Semester, VAC V / VOC V / VAC VI / VOC VI (Course Code), Counselling Date (DD-MM-YYYY), Status, Remarks.</li>
+        <li>Upload the saved file. Valid rows import; errors are listed with row numbers. Duplicate Enrollment Nos are rejected.</li>
+        <li>Course sheets (VAC V / VOC V / VAC VI / VOC VI) separate automatically.</li>
+      </ol>
+    </div>
+
+    <div class="oec-table-card" id="restore">
+      <div class="oec-card-head"><h2>⇧ Restore database backup</h2></div>
+      <form method="post" action="{{ url_for('oec_restore') }}" enctype="multipart/form-data" class="oec-form-inner"
+            onsubmit="return confirm('Replace ALL current data with this backup? A safety copy of the current data is saved automatically.');">
+        <input type="file" name="file" accept=".db" required>
+        <div class="oec-form-actions">
+          <button type="submit" class="obtn obtn-red obtn-lg">Restore Backup</button>
+          <a class="obtn" href="{{ url_for('oec_backup') }}">⇩ Download Current Backup</a>
+        </div>
+      </form>
+      <ol class="step-list oec-steps">
+        <li>Use <strong>Backup</strong> (Main Entry Sheet toolbar) regularly — it downloads the full <code>counselling.db</code>.</li>
+        <li>Restore accepts only that <code>.db</code> file; it is validated before replacing anything.</li>
+        <li>The current database is kept as <code>counselling.db.bak-…</code> before the restore is applied.</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

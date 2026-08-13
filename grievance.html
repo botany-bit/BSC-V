@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Submit a Grievance{% endblock %}
+{% block content %}
+
+<section class="page-head">
+  <div class="container">
+    <p class="breadcrumb"><a href="{{ url_for('home') }}">Home</a> / Grievance</p>
+    <h1>Submit a Grievance</h1>
+    <p class="page-lead">Confidential grievance submission for B.Sc. students. The Counselling Cell responds within 3 working days.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container form-page">
+    <form class="card form-card" method="post" action="{{ url_for('grievance') }}" novalidate>
+      <fieldset>
+        <legend>Your details</legend>
+        <div class="form-grid">
+          <div class="field">
+            <label for="name">Full name *</label>
+            <input type="text" id="name" name="name" value="{{ form.get('name','') }}" required>
+          </div>
+          <div class="field">
+            <label for="roll_no">Roll / Enrolment number</label>
+            <input type="text" id="roll_no" name="roll_no" value="{{ form.get('roll_no','') }}">
+          </div>
+          <div class="field">
+            <label for="email">E-mail *</label>
+            <input type="email" id="email" name="email" value="{{ form.get('email','') }}" required>
+          </div>
+          <div class="field">
+            <label for="category">Grievance category</label>
+            <select id="category" name="category">
+              {% for c in GRIEVANCE_CATEGORIES %}
+              <option value="{{ c }}" {% if form.get('category') == c %}selected{% endif %}>{{ c }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Grievance details</legend>
+        <div class="field">
+          <label for="subject">Subject *</label>
+          <input type="text" id="subject" name="subject" value="{{ form.get('subject','') }}" required>
+        </div>
+        <div class="field">
+          <label for="message">Description * (minimum 20 characters)</label>
+          <textarea id="message" name="message" rows="5" required>{{ form.get('message','') }}</textarea>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn btn-gold btn-lg">Submit Grievance</button>
+      <p class="fineprint">All grievances are treated confidentially. For emergencies, please contact the Proctor's office or the University helpline directly.</p>
+    </form>
+  </div>
+</section>
+
+{% endblock %}

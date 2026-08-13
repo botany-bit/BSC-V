@@ -1,0 +1,6 @@
+# Normalise line endings for cross-platform collaboration
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.ico binary
+*.db binary
